@@ -1,4 +1,4 @@
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
@@ -8,7 +8,7 @@ from rich.prompt import Prompt
 # It is kept in payload_creator.py (its correct category) and removed from here.
 
 
-class Pyshell(HackingTool):
+class Pyshell(ODKTool):
     TITLE = "Pyshell"
     DESCRIPTION = "Pyshell is a Rat Tool that can be able to download & upload " \
                   "files,\n Execute OS Command and more.."
@@ -20,7 +20,7 @@ class Pyshell(HackingTool):
     PROJECT_URL = "https://github.com/knassar702/pyshell"
 
 
-class RemoteAdministrationTools(HackingToolsCollection):
+class RemoteAdministrationTools(ODKToolsCollection):
     TITLE = "Remote Administrator Tools (RAT)"
     TOOLS = [
         Pyshell()

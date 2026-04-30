@@ -1,11 +1,11 @@
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich import box
 
 
-class GoSpider(HackingTool):
+class GoSpider(ODKTool):
     TITLE = "Gospider"
     DESCRIPTION = "Gospider - Fast web spider written in Go"
     INSTALL_COMMANDS = ["sudo go get -u github.com/jaeles-project/gospider"]
@@ -15,7 +15,7 @@ class GoSpider(HackingTool):
         super().__init__(runnable = False)
 
 
-class WebCrawlingTools(HackingToolsCollection):
+class WebCrawlingTools(ODKToolsCollection):
     TITLE = "Web crawling"
     TOOLS = [GoSpider()]
 

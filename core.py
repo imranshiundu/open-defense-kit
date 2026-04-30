@@ -66,7 +66,7 @@ def _show_inline_help():
             ("  99     ", "bold cyan"), ("go back\n", "white"),
             ("  98     ", "bold cyan"), ("open project page / archived\n", "white"),
             ("  ?      ", "bold cyan"), ("show this help\n", "white"),
-            ("  q      ", "bold cyan"), ("quit hackingtool\n", "white"),
+            ("  q      ", "bold cyan"), ("quit Open Defense Kit\n", "white"),
         ),
         title="[bold magenta] ? Quick Help [/bold magenta]",
         border_style="magenta",
@@ -76,7 +76,7 @@ def _show_inline_help():
     Prompt.ask("[dim]Press Enter to return[/dim]", default="")
 
 
-class HackingTool:
+class ODKTool:
     TITLE: str              = ""
     DESCRIPTION: str        = ""
     INSTALL_COMMANDS: list[str]  = []
@@ -312,7 +312,7 @@ class HackingTool:
         tool_dir = self._get_tool_dir()
         if tool_dir:
             console.print(f"[success]Opening folder: {tool_dir}[/success]")
-            console.print("[dim]Type 'exit' to return to hackingtool.[/dim]")
+            console.print("[dim]Type 'exit' to return to Open Defense Kit.[/dim]")
             os.system(f'cd "{tool_dir}" && $SHELL')
         else:
             console.print("[warning]Tool directory not found.[/warning]")
@@ -337,7 +337,7 @@ class HackingTool:
         webbrowser.open_new_tab(self.PROJECT_URL)
 
 
-class HackingToolsCollection:
+class ODKToolsCollection:
     TITLE: str       = ""
     DESCRIPTION: str = ""
     TOOLS: list      = []

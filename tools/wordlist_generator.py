@@ -6,10 +6,10 @@ from rich.prompt import Prompt
 from rich.table import Table
 from rich import box
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 
-class Cupp(HackingTool):
+class Cupp(ODKTool):
     TITLE = "Cupp"
     # Bug 24 fix: DESCRIPTION was copy-pasted from WlCreator — completely wrong
     DESCRIPTION = "Common User Passwords Profiler — generates personalized wordlists based on target info."
@@ -28,7 +28,7 @@ class Cupp(HackingTool):
         console.print(panel)
 
 
-class WlCreator(HackingTool):
+class WlCreator(ODKTool):
     TITLE = "WordlistCreator"
     DESCRIPTION = "WlCreator is a C program that can create all possibilities" \
                   " of passwords,\n and you can choose Length, Lowercase, " \
@@ -49,7 +49,7 @@ class WlCreator(HackingTool):
         console.print(panel)
 
 
-class GoblinWordGenerator(HackingTool):
+class GoblinWordGenerator(ODKTool):
     TITLE = "Goblin WordGenerator"
     DESCRIPTION = "Goblin WordGenerator"
     INSTALL_COMMANDS = [
@@ -68,7 +68,7 @@ class GoblinWordGenerator(HackingTool):
         console.print(panel)
 
 
-class showme(HackingTool):
+class showme(ODKTool):
     TITLE = "Password list (1.4 Billion Clear Text Password)"
     DESCRIPTION = "This tool allows you to perform OSINT and reconnaissance on " \
                   "an organisation or an individual. It allows one to search " \
@@ -93,7 +93,7 @@ class showme(HackingTool):
         console.print(panel)
 
 
-class Hashcat(HackingTool):
+class Hashcat(ODKTool):
     TITLE = "Hashcat (Password Cracker)"
     DESCRIPTION = (
         "World's fastest GPU/CPU password recovery tool — supports 300+ hash types.\n"
@@ -105,7 +105,7 @@ class Hashcat(HackingTool):
     PROJECT_URL = "https://github.com/hashcat/hashcat"
 
 
-class JohnTheRipper(HackingTool):
+class JohnTheRipper(ODKTool):
     TITLE = "John the Ripper"
     DESCRIPTION = (
         "Open-source password security auditing and recovery tool.\n"
@@ -117,7 +117,7 @@ class JohnTheRipper(HackingTool):
     PROJECT_URL = "https://github.com/openwall/john"
 
 
-class Haiti(HackingTool):
+class Haiti(ODKTool):
     TITLE = "haiti (Hash Type Identifier)"
     DESCRIPTION = (
         "Identify hash types — supports 300+ algorithms.\n"
@@ -129,7 +129,7 @@ class Haiti(HackingTool):
     PROJECT_URL = "https://github.com/noraj/haiti"
 
 
-class WordlistGeneratorTools(HackingToolsCollection):
+class WordlistGeneratorTools(ODKToolsCollection):
     TITLE = "Wordlist Generator"
     TOOLS = [
         Cupp(),

@@ -1,10 +1,10 @@
 import os
 import subprocess
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 
-class TheFatRat(HackingTool):
+class TheFatRat(ODKTool):
     TITLE = "The FatRat"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -38,7 +38,7 @@ class TheFatRat(HackingTool):
         subprocess.run(["./chk_tools"], cwd=cwd)
 
 
-class Brutal(HackingTool):
+class Brutal(ODKTool):
     TITLE = "Brutal"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -63,7 +63,7 @@ class Brutal(HackingTool):
         )
 
 
-class Stitch(HackingTool):
+class Stitch(ODKTool):
     TITLE = "Stitch"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -78,7 +78,7 @@ class Stitch(HackingTool):
     PROJECT_URL = "https://nathanlopez.github.io/Stitch"
 
 
-class MSFVenom(HackingTool):
+class MSFVenom(ODKTool):
     TITLE = "MSFvenom Payload Creator"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -93,7 +93,7 @@ class MSFVenom(HackingTool):
     PROJECT_URL = "https://github.com/g0tmi1k/msfpc"
 
 
-class Venom(HackingTool):
+class Venom(ODKTool):
     TITLE = "Venom Shellcode Generator"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "Venom exploits apache2 webserver to deliver LAN payloads via fake webpages."
@@ -106,7 +106,7 @@ class Venom(HackingTool):
     PROJECT_URL = "https://github.com/r00t-3xp10it/venom"
 
 
-class Spycam(HackingTool):
+class Spycam(ODKTool):
     TITLE = "Spycam"
     DESCRIPTION = "Generates a Win32 payload that captures webcam images every 1 minute."
     INSTALL_COMMANDS = [
@@ -117,7 +117,7 @@ class Spycam(HackingTool):
     PROJECT_URL = "https://github.com/indexnotfound404/spycam"
 
 
-class MobDroid(HackingTool):
+class MobDroid(ODKTool):
     TITLE = "Mob-Droid"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "Generates metasploit payloads easily without typing long commands."
@@ -126,7 +126,7 @@ class MobDroid(HackingTool):
     PROJECT_URL = "https://github.com/kinghacker0/Mob-Droid"
 
 
-class Enigma(HackingTool):
+class Enigma(ODKTool):
     TITLE = "Enigma"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "Enigma is a Multiplatform payload dropper."
@@ -135,7 +135,7 @@ class Enigma(HackingTool):
     PROJECT_URL = "https://github.com/UndeadSec/Enigma"
 
 
-class PayloadCreatorTools(HackingToolsCollection):
+class PayloadCreatorTools(ODKToolsCollection):
     TITLE = "Payload creation tools"
     # Bug 11 fix: show_options() override was missing `parent` parameter entirely —
     # the whole override is now deleted and the base class method is used instead.

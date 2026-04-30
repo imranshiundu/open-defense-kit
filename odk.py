@@ -28,8 +28,8 @@ from rich import box
 from rich.rule import Rule
 from rich.columns import Columns
 
-from core import HackingToolsCollection, clear_screen, console
-from constants import VERSION_DISPLAY, REPO_WEB_URL
+from core import ODKToolsCollection, clear_screen, console
+from constants import VERSION_DISPLAY, REPO_WEB_URL, REPO_ABBR
 from config import get_tools_dir
 from tools.anonsurf import AnonSurfTools
 from tools.ddos import DDOSTools
@@ -79,7 +79,7 @@ tool_definitions = [
     ("Cloud Security Tools",               "☁ ",  "Cloud Security"),
     ("Mobile Security Tools",              "📱",  "Mobile Security"),
     ("Other tools",                        "✨",  "Other Tools"),
-    ("Update or Uninstall | Hackingtool",  "♻ ",  "Update / Uninstall"),
+    ("Update or Uninstall | ODK",          "♻ ",  "Update / Uninstall"),
 ]
 
 all_tools = [
@@ -107,7 +107,7 @@ all_tools = [
 ]
 
 # Used by generate_readme.py
-class AllTools(HackingToolsCollection):
+class AllTools(ODKToolsCollection):
     TITLE = "All tools"
     TOOLS = all_tools
 
@@ -120,12 +120,12 @@ def show_help():
             ("  Main menu\n", "bold white"),
             ("  ─────────────────────────────────────\n", "dim"),
             ("  1–20   ", "bold cyan"), ("open a category\n", "white"),
-            ("  21     ", "bold cyan"), ("Update / Uninstall hackingtool\n", "white"),
+            ("  21     ", "bold cyan"), ("Update / Uninstall ODK\n", "white"),
             ("  / or s ", "bold cyan"), ("search tools by name or keyword\n", "white"),
             ("  t      ", "bold cyan"), ("filter tools by tag (osint, web, c2, ...)\n", "white"),
             ("  r      ", "bold cyan"), ("recommend tools for a task\n", "white"),
             ("  ?      ", "bold cyan"), ("show this help\n", "white"),
-            ("  q      ", "bold cyan"), ("quit hackingtool\n\n", "white"),
+            ("  q      ", "bold cyan"), ("quit ODK\n\n", "white"),
             ("  Inside a category\n", "bold white"),
             ("  ─────────────────────────────────────\n", "dim"),
             ("  1–N    ", "bold cyan"), ("select a tool\n", "white"),
@@ -147,20 +147,20 @@ def show_help():
 
 # ── Header: ASCII art + live system info ──────────────────────────────────────
 
-# Full "HACKING TOOL" block-letter art — 12 lines, split layout with stats
+# Full "OPEN DEFENSE KIT" block-letter art
 _BANNER_ART = [
-    " ██╗  ██╗ █████╗  ██████╗██╗  ██╗██╗███╗   ██╗ ██████╗ ",
-    " ██║  ██║██╔══██╗██╔════╝██║ ██╔╝██║████╗  ██║██╔════╝ ",
-    " ███████║███████║██║     █████╔╝ ██║██╔██╗ ██║██║  ███╗",
-    " ██╔══██║██╔══██║██║     ██╔═██╗ ██║██║╚██╗██║██║   ██║",
-    " ██║  ██║██║  ██║╚██████╗██║  ██╗██║██║ ╚████║╚██████╔╝",
-    " ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ",
-    "        ████████╗ ██████╗  ██████╗ ██╗",
-    "        ╚══██╔══╝██╔═══██╗██╔═══██╗██║",
-    "           ██║   ██║   ██║██║   ██║██║",
-    "           ██║   ██║   ██║██║   ██║██║",
-    "           ██║   ╚██████╔╝╚██████╔╝███████╗",
-    "           ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝",
+    "  ____  _____  _____ _   _   ____  _____ _____ _____ _   _ ____  _____ ",
+    " / __ \\|  __ \\|  ___| \\ | | |  _ \\|  ___|  ___|  ___| \\ | / ___|| ____|",
+    "| |  | | |__) | |__ |  \\| | | | | | |__ | |__ | |__ |  \\| \\___ \\|  _|  ",
+    "| |  | |  ___/|  __|| . ` | | | | |  __||  __||  __|| . ` |___) | |___ ",
+    " \\____/|_|    |_____|_|\\__| |____/|_____|_|   |_____|_|\\__|____/|_____|",
+    "                                                                       ",
+    "                    ██████╗ ██████╗ ██╗  ██╗                           ",
+    "                   ██╔═══██╗██╔══██╗██║ ██╔╝                           ",
+    "                   ██║   ██║██║  ██║█████╔╝                            ",
+    "                   ██║   ██║██║  ██║██╔═██╗                            ",
+    "                   ╚██████╔╝██████╔╝██║  ██╗                           ",
+    "                    ╚═════╝ ╚═════╝ ╚═╝  ╚═╝                           ",
 ]
 
 _QUOTES = [
@@ -258,7 +258,7 @@ def _build_header() -> Panel:
 
     return Panel(
         body,
-        title=f"[bold bright_magenta][ HackingTool {VERSION_DISPLAY} ][/bold bright_magenta]",
+        title=f"[bold bright_magenta][ Open Defense Kit {VERSION_DISPLAY} ][/bold bright_magenta]",
         title_align="left",
         subtitle=f"[dim][ {info['time']} ][/dim]",
         subtitle_align="right",
@@ -329,14 +329,14 @@ def build_menu():
 
 def _collect_all_tools() -> list[tuple]:
     """Walk all collections and return (tool_instance, category_name) pairs."""
-    from core import HackingTool, HackingToolsCollection
+    from core import ODKTool, ODKToolsCollection
     results = []
 
     def _walk(items, parent_title=""):
         for item in items:
-            if isinstance(item, HackingToolsCollection):
+            if isinstance(item, ODKToolsCollection):
                 _walk(item.TOOLS, item.TITLE)
-            elif isinstance(item, HackingTool):
+            elif isinstance(item, ODKTool):
                 results.append((item, parent_title))
 
     _walk(all_tools)
@@ -676,7 +676,7 @@ def main():
         if CURRENT_OS.system not in ("linux", "macos"):
             console.print(f"[yellow]Unsupported OS: {CURRENT_OS.system}. Proceeding anyway...[/yellow]")
 
-        get_tools_dir()   # ensures ~/.hackingtool/tools/ exists
+        get_tools_dir()   # ensures ~/.odk/tools/ exists
         interact_menu()
 
     except KeyboardInterrupt:

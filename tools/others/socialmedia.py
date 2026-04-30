@@ -2,14 +2,14 @@ import contextlib
 import os
 import subprocess
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich import box
 
 
-class InstaBrute(HackingTool):
+class InstaBrute(ODKTool):
     TITLE = "Instagram Attack"
     DESCRIPTION = "Brute force attack against Instagram"
     PROJECT_URL = "https://github.com/chinoogawa/instaBrute"
@@ -23,7 +23,7 @@ class InstaBrute(HackingTool):
         super().__init__(installable=False, runnable=False)
 
 
-class BruteForce(HackingTool):
+class BruteForce(ODKTool):
     TITLE = "AllinOne SocialMedia Attack"
     DESCRIPTION = "Brute_Force_Attack Gmail Hotmail Twitter Facebook Netflix \n" \
                   "[!] python3 Brute_Force.py -g <Account@gmail.com> -l <File_list>"
@@ -35,7 +35,7 @@ class BruteForce(HackingTool):
     PROJECT_URL = "https://github.com/Matrix07ksa/Brute_Force"
 
 
-class Faceshell(HackingTool):
+class Faceshell(ODKTool):
     TITLE = "Facebook Attack"
     DESCRIPTION = "Facebook BruteForcer"
     INSTALL_COMMANDS = [
@@ -55,7 +55,7 @@ class Faceshell(HackingTool):
         )
 
 
-class AppCheck(HackingTool):
+class AppCheck(ODKTool):
     TITLE = "Application Checker"
     DESCRIPTION = "Tool to check if an app is installed on the target device through a link."
     INSTALL_COMMANDS = [
@@ -66,7 +66,7 @@ class AppCheck(HackingTool):
     PROJECT_URL = "https://github.com/jakuta-tech/underhanded"
 
 
-class SocialMediaBruteforceTools(HackingToolsCollection):
+class SocialMediaBruteforceTools(ODKToolsCollection):
     TITLE = "SocialMedia Bruteforce"
     TOOLS = [
         InstaBrute(),

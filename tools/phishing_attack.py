@@ -1,9 +1,9 @@
 import os
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 
-class Autophisher(HackingTool):
+class Autophisher(ODKTool):
     TITLE = "Autophisher RK"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "Automated Phishing Toolkit"
@@ -14,7 +14,7 @@ class Autophisher(HackingTool):
     PROJECT_URL = "https://github.com/CodingRanjith/autophisher"
 
 
-class Pyphisher(HackingTool):
+class Pyphisher(ODKTool):
     TITLE = "Pyphisher"
     DESCRIPTION = "Easy to use phishing tool with 77 website templates"
     # Bug 9 fix: pip must reference the full path, not rely on a no-op "cd" call
@@ -27,7 +27,7 @@ class Pyphisher(HackingTool):
     PROJECT_URL = "https://github.com/KasRoudra/PyPhisher"
 
 
-class AdvPhishing(HackingTool):
+class AdvPhishing(ODKTool):
     TITLE = "AdvPhishing"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "This is Advance Phishing Tool ! OTP PHISHING"
@@ -40,7 +40,7 @@ class AdvPhishing(HackingTool):
     PROJECT_URL = "https://github.com/Ignitetch/AdvPhishing"
 
 
-class Setoolkit(HackingTool):
+class Setoolkit(ODKTool):
     TITLE = "Setoolkit"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -55,7 +55,7 @@ class Setoolkit(HackingTool):
     PROJECT_URL = "https://github.com/trustedsec/social-engineer-toolkit"
 
 
-class SocialFish(HackingTool):
+class SocialFish(ODKTool):
     TITLE = "SocialFish"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "Automated Phishing Tool & Information Collector NOTE: username is 'root' and password is 'pass'"
@@ -67,7 +67,7 @@ class SocialFish(HackingTool):
     PROJECT_URL = "https://github.com/UndeadSec/SocialFish"
 
 
-class HiddenEye(HackingTool):
+class HiddenEye(ODKTool):
     TITLE = "HiddenEye"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -83,7 +83,7 @@ class HiddenEye(HackingTool):
     PROJECT_URL = "https://github.com/Morsmalleo/HiddenEye"
 
 
-class Evilginx3(HackingTool):
+class Evilginx3(ODKTool):
     TITLE = "Evilginx3"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -101,7 +101,7 @@ class Evilginx3(HackingTool):
     REQUIRES_GO = True
 
 
-class ISeeYou(HackingTool):
+class ISeeYou(ODKTool):
     TITLE = "I-See_You"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -116,7 +116,7 @@ class ISeeYou(HackingTool):
     PROJECT_URL = "https://github.com/Viralmaniar/I-See-You"
 
 
-class SayCheese(HackingTool):
+class SayCheese(ODKTool):
     TITLE = "SayCheese"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "Take webcam shots from target just by sending a malicious link"
@@ -125,7 +125,7 @@ class SayCheese(HackingTool):
     PROJECT_URL = "https://github.com/hangetzzu/saycheese"
 
 
-class QRJacking(HackingTool):
+class QRJacking(ODKTool):
     TITLE = "QR Code Jacking"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "QR Code Jacking (Any Website)"
@@ -139,7 +139,7 @@ class QRJacking(HackingTool):
 # Bug 10 fix: WifiPhisher removed from phishing tools — it belongs in wireless_attack.py
 
 
-class BlackEye(HackingTool):
+class BlackEye(ODKTool):
     TITLE = "BlackEye"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "The ultimate phishing tool with 38 websites available!"
@@ -150,7 +150,7 @@ class BlackEye(HackingTool):
     PROJECT_URL = "https://github.com/An0nUD4Y/blackeye"
 
 
-class ShellPhish(HackingTool):
+class ShellPhish(ODKTool):
     TITLE = "ShellPhish"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "Phishing Tool for 18 social media"
@@ -159,7 +159,7 @@ class ShellPhish(HackingTool):
     PROJECT_URL = "https://github.com/An0nUD4Y/shellphish"
 
 
-class Thanos(HackingTool):
+class Thanos(ODKTool):
     TITLE = "Thanos"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "Browser to Browser Phishing toolkit"
@@ -172,7 +172,7 @@ class Thanos(HackingTool):
     PROJECT_URL = "https://github.com/TridevReddy/Thanos"
 
 
-class QRLJacking(HackingTool):
+class QRLJacking(ODKTool):
     TITLE = "QRLJacking"
     DESCRIPTION = "QRLJacking — session hijacking attack vector targeting QR code based login"
     INSTALL_COMMANDS = [
@@ -187,7 +187,7 @@ class QRLJacking(HackingTool):
     PROJECT_URL = "https://github.com/OWASP/QRLJacking"
 
 
-class Maskphish(HackingTool):
+class Maskphish(ODKTool):
     TITLE = "Maskphish"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "Hide phishing URL under a normal looking URL (google.com or facebook.com)"
@@ -198,7 +198,7 @@ class Maskphish(HackingTool):
     PROJECT_URL = "https://github.com/jaykali/maskphish"
 
 
-class BlackPhish(HackingTool):
+class BlackPhish(ODKTool):
     TITLE = "BlackPhish"
     SUPPORTED_OS = ["linux"]
     INSTALL_COMMANDS = [
@@ -218,7 +218,7 @@ class BlackPhish(HackingTool):
         subprocess.run(["bash", "update.sh"], cwd=str(get_tools_dir() / "BlackPhish"))
 
 
-class Dnstwist(HackingTool):
+class Dnstwist(ODKTool):
     # Bug 2 fix: all attributes were wrong case (Title, Install_commands, etc.)
     # They are now the correct uppercase names the base class reads.
     TITLE = "dnstwist"
@@ -228,7 +228,7 @@ class Dnstwist(HackingTool):
     PROJECT_URL = "https://github.com/elceef/dnstwist"
 
 
-class PhishingAttackTools(HackingToolsCollection):
+class PhishingAttackTools(ODKToolsCollection):
     TITLE = "Phishing attack tools"
     TOOLS = [
         Autophisher(),

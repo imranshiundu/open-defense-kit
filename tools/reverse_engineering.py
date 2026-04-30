@@ -1,12 +1,12 @@
 import subprocess
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 
 
-class AndroGuard(HackingTool):
+class AndroGuard(ODKTool):
     TITLE = "Androguard"
     DESCRIPTION = "Androguard is a Reverse engineering, Malware and goodware " \
                   "analysis of Android applications and more"
@@ -17,7 +17,7 @@ class AndroGuard(HackingTool):
         super().__init__(runnable=False)
 
 
-class Apk2Gold(HackingTool):
+class Apk2Gold(ODKTool):
     TITLE = "Apk2Gold"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "Apk2Gold is a CLI tool for decompiling Android apps to Java"
@@ -32,7 +32,7 @@ class Apk2Gold(HackingTool):
         subprocess.run(["sudo", "apk2gold", uinput])
 
 
-class Jadx(HackingTool):
+class Jadx(ODKTool):
     TITLE = "JadX"
     DESCRIPTION = "Jadx is Dex to Java decompiler.\n" \
                   "[*] decompile Dalvik bytecode to java classes from APK, dex," \
@@ -52,7 +52,7 @@ class Jadx(HackingTool):
         super().__init__(runnable=False)
 
 
-class Ghidra(HackingTool):
+class Ghidra(ODKTool):
     TITLE = "Ghidra (NSA Reverse Engineering)"
     DESCRIPTION = "NSA's software reverse engineering framework — disassembly, decompilation, scripting."
     REQUIRES_JAVA = True
@@ -64,7 +64,7 @@ class Ghidra(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class Radare2(HackingTool):
+class Radare2(ODKTool):
     TITLE = "Radare2 (RE Framework)"
     DESCRIPTION = "Portable UNIX-like reverse engineering framework and command-line toolset."
     INSTALL_COMMANDS = [
@@ -76,7 +76,7 @@ class Radare2(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class ReverseEngineeringTools(HackingToolsCollection):
+class ReverseEngineeringTools(ODKToolsCollection):
     TITLE = "Reverse engineering tools"
     TOOLS = [
         AndroGuard(),

@@ -1,11 +1,11 @@
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich import box
 
 
-class TerminalMultiplexer(HackingTool):
+class TerminalMultiplexer(ODKTool):
     TITLE = "Terminal Multiplexer"
     DESCRIPTION = (
         "Terminal Multiplexer (tilix) is a tiling terminal emulator that "
@@ -20,7 +20,7 @@ class TerminalMultiplexer(HackingTool):
         super().__init__(runnable=False)
 
 
-class Crivo(HackingTool):
+class Crivo(ODKTool):
     TITLE = "Crivo"
     DESCRIPTION = (
         "A tool for extracting and filtering URLs, IPs, domains, and subdomains\n"
@@ -39,7 +39,7 @@ class Crivo(HackingTool):
         super().__init__(runnable=False)
 
 
-class MixTools(HackingToolsCollection):
+class MixTools(ODKToolsCollection):
     TITLE = "Mix tools"
     TOOLS = [
         TerminalMultiplexer(),

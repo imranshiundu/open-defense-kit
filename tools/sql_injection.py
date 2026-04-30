@@ -1,10 +1,10 @@
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 
 
-class Sqlmap(HackingTool):
+class Sqlmap(ODKTool):
     TITLE = "Sqlmap tool"
     DESCRIPTION = "sqlmap is an open source penetration testing tool that " \
                   "automates the process of detecting and exploiting SQL injection flaws " \
@@ -14,7 +14,7 @@ class Sqlmap(HackingTool):
     PROJECT_URL = "https://github.com/sqlmapproject/sqlmap"
 
 
-class NoSqlMap(HackingTool):
+class NoSqlMap(ODKTool):
     TITLE = "NoSqlMap"
     DESCRIPTION = "NoSQLMap is an open source Python tool designed to audit and automate injection attacks. [*] Please install MongoDB."
     INSTALL_COMMANDS = [
@@ -27,7 +27,7 @@ class NoSqlMap(HackingTool):
     PROJECT_URL = "https://github.com/codingo/NoSQLMap"
 
 
-class SQLiScanner(HackingTool):
+class SQLiScanner(ODKTool):
     TITLE = "Damn Small SQLi Scanner"
     DESCRIPTION = "DSSS is a fully functional SQL injection vulnerability scanner also supporting GET and POST parameters. Usage: python3 dsss.py -h | -u [URL]"
     INSTALL_COMMANDS = ["git clone https://github.com/stamparm/DSSS.git"]
@@ -37,7 +37,7 @@ class SQLiScanner(HackingTool):
         super().__init__(runnable=False)
 
 
-class Explo(HackingTool):
+class Explo(ODKTool):
     TITLE = "Explo"
     DESCRIPTION = "Explo is a simple tool to describe web security issues in human and machine readable format. Usage: explo [--verbose|-v] testcase.yaml | explo [--verbose|-v] examples/*.yaml"
     INSTALL_COMMANDS = [
@@ -50,7 +50,7 @@ class Explo(HackingTool):
         super().__init__(runnable=False)
 
 
-class Blisqy(HackingTool):
+class Blisqy(ODKTool):
     TITLE = "Blisqy - Exploit Time-based blind-SQL injection"
     DESCRIPTION = "Blisqy helps web security researchers find time-based blind SQL injections on HTTP headers and exploit them."
     INSTALL_COMMANDS = ["git clone https://github.com/JohnTroony/Blisqy.git"]
@@ -60,7 +60,7 @@ class Blisqy(HackingTool):
         super().__init__(runnable=False)
 
 
-class Leviathan(HackingTool):
+class Leviathan(ODKTool):
     TITLE = "Leviathan - Wide Range Mass Audit Toolkit"
     DESCRIPTION = "Leviathan is a mass audit toolkit with service discovery, brute force, SQL injection detection, and custom exploit capabilities. Requires API keys."
     INSTALL_COMMANDS = ["git clone https://github.com/leviathan-framework/leviathan.git",
@@ -69,7 +69,7 @@ class Leviathan(HackingTool):
     PROJECT_URL = "https://github.com/leviathan-framework/leviathan"
 
 
-class SQLScan(HackingTool):
+class SQLScan(ODKTool):
     TITLE = "SQLScan"
     DESCRIPTION = "SQLScan is a quick web scanner to find SQL injection points. Not for educational purposes."
     INSTALL_COMMANDS = ["sudo apt install php php-bz2 php-curl php-mbstring curl",
@@ -79,7 +79,7 @@ class SQLScan(HackingTool):
     PROJECT_URL = "https://github.com/Cvar1984/sqlscan"
 
 
-class SqlInjectionTools(HackingToolsCollection):
+class SqlInjectionTools(ODKToolsCollection):
     TITLE = "SQL Injection Tools"
     TOOLS = [Sqlmap(), NoSqlMap(), SQLiScanner(), Explo(), Blisqy(), Leviathan(), SQLScan()]
 

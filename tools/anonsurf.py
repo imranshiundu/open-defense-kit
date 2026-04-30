@@ -1,9 +1,9 @@
 import os
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 
-class AnonymouslySurf(HackingTool):
+class AnonymouslySurf(ODKTool):
     TITLE = "Anonymously Surf"
     DESCRIPTION = (
         "It automatically overwrites the RAM when the system shuts down\n"
@@ -29,7 +29,7 @@ class AnonymouslySurf(HackingTool):
         subprocess.run(["sudo", "anonsurf", "stop"])
 
 
-class Multitor(HackingTool):
+class Multitor(ODKTool):
     TITLE = "Multitor"
     DESCRIPTION = "How to stay in multi places at the same time."
     INSTALL_COMMANDS = [
@@ -46,7 +46,7 @@ class Multitor(HackingTool):
         super().__init__(runnable=False)
 
 
-class AnonSurfTools(HackingToolsCollection):
+class AnonSurfTools(ODKToolsCollection):
     TITLE = "Anonymously Hiding Tools"
     TOOLS = [
         AnonymouslySurf(),

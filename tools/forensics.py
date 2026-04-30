@@ -1,13 +1,13 @@
 import os
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.text import Text
 from rich.prompt import Prompt
 
 
-class Autopsy(HackingTool):
+class Autopsy(ODKTool):
     TITLE = "Autopsy"
     DESCRIPTION = "Autopsy is a platform that is used by Cyber Investigators.\n" \
                   "[!] Works in any OS\n" \
@@ -19,7 +19,7 @@ class Autopsy(HackingTool):
         super().__init__(installable=False)
 
 
-class Wireshark(HackingTool):
+class Wireshark(ODKTool):
     TITLE = "Wireshark"
     DESCRIPTION = "Wireshark is a network capture and analyzer \n" \
                   "tool to see what’s happening in your network.\n " \
@@ -30,7 +30,7 @@ class Wireshark(HackingTool):
         super().__init__(installable=False)
 
 
-class BulkExtractor(HackingTool):
+class BulkExtractor(ODKTool):
     TITLE = "Bulk extractor"
     DESCRIPTION = "Extract useful information without parsing the file system"
     PROJECT_URL = "https://github.com/simsong/bulk_extractor"
@@ -65,7 +65,7 @@ class BulkExtractor(HackingTool):
         subprocess.run(["bulk_extractor", "-h"])
 
 
-class Guymager(HackingTool):
+class Guymager(ODKTool):
     TITLE = "Disk Clone and ISO Image Acquire"
     DESCRIPTION = "Guymager is a free forensic imager for media acquisition."
     SUPPORTED_OS = ["linux"]
@@ -75,7 +75,7 @@ class Guymager(HackingTool):
 
 
 
-class Toolsley(HackingTool):
+class Toolsley(ODKTool):
     TITLE = "Toolsley"
     DESCRIPTION = "Toolsley got more than ten useful tools for investigation.\n" \
                   "[+]File signature verifier\n" \
@@ -91,7 +91,7 @@ class Toolsley(HackingTool):
         super().__init__(installable=False, runnable=False)
 
 
-class Volatility3(HackingTool):
+class Volatility3(ODKTool):
     TITLE = "Volatility 3 (Memory Forensics)"
     DESCRIPTION = (
         "The world's most widely used memory forensics framework.\n"
@@ -115,7 +115,7 @@ class Volatility3(HackingTool):
         )
 
 
-class Binwalk(HackingTool):
+class Binwalk(ODKTool):
     TITLE = "Binwalk (Firmware Analysis)"
     DESCRIPTION = (
         "Analyze, reverse engineer, and extract firmware images.\n"
@@ -126,7 +126,7 @@ class Binwalk(HackingTool):
     PROJECT_URL = "https://github.com/ReFirmLabs/binwalk"
 
 
-class Pspy(HackingTool):
+class Pspy(ODKTool):
     TITLE = "pspy (Process Monitor — No Root)"
     DESCRIPTION = "Monitor Linux processes without root — detects cron jobs, scheduled tasks, other users' commands."
     INSTALL_COMMANDS = [
@@ -138,7 +138,7 @@ class Pspy(HackingTool):
     SUPPORTED_OS = ["linux"]
 
 
-class ForensicTools(HackingToolsCollection):
+class ForensicTools(ODKToolsCollection):
     TITLE = "Forensic tools"
     TOOLS = [
         Autopsy(),

@@ -1,11 +1,11 @@
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich import box
 
 
-class EvilURL(HackingTool):
+class EvilURL(ODKTool):
     TITLE = "EvilURL"
     DESCRIPTION = "Generate unicode evil domains for IDN Homograph Attack " \
                   "and detect them."
@@ -14,7 +14,7 @@ class EvilURL(HackingTool):
     PROJECT_URL = "https://github.com/UndeadSec/EvilURL"
 
 
-class IDNHomographAttackTools(HackingToolsCollection):
+class IDNHomographAttackTools(ODKToolsCollection):
     TITLE = "IDN Homograph Attack"
     TOOLS = [EvilURL()]
 

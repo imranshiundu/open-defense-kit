@@ -1,11 +1,11 @@
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich import box
 
 
-class HashBuster(HackingTool):
+class HashBuster(ODKTool):
     TITLE = "Hash Buster"
     DESCRIPTION = "Features: \n " \
                   "Automatic hash type identification \n " \
@@ -18,7 +18,7 @@ class HashBuster(HackingTool):
     PROJECT_URL = "https://github.com/s0md3v/Hash-Buster"
 
 
-class HashCrackingTools(HackingToolsCollection):
+class HashCrackingTools(ODKToolsCollection):
     TITLE = "Hash cracking tools"
     TOOLS = [HashBuster()]
 

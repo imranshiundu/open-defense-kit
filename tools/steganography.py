@@ -1,13 +1,13 @@
 import subprocess
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 from core import validate_input
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 
 
-class SteganoHide(HackingTool):
+class SteganoHide(ODKTool):
     TITLE = "SteganoHide"
     INSTALL_COMMANDS = ["sudo apt-get install steghide -y"]
 
@@ -36,7 +36,7 @@ class SteganoHide(HackingTool):
             subprocess.run(["steghide", "extract", "-sf", from_file])
 
 
-class StegnoCracker(HackingTool):
+class StegnoCracker(ODKTool):
     TITLE = "StegnoCracker"
     DESCRIPTION = "SteganoCracker uncovers hidden data inside files using brute-force utility"
     INSTALL_COMMANDS = ["pip3 install stegcracker && pip3 install stegcracker -U --force-reinstall"]
@@ -47,7 +47,7 @@ class StegnoCracker(HackingTool):
         subprocess.run(["stegcracker", filename, passfile])
 
 
-class StegoCracker(HackingTool):
+class StegoCracker(ODKTool):
     TITLE = "StegoCracker"
     DESCRIPTION = "StegoCracker lets you hide and retrieve data in image or audio files"
     INSTALL_COMMANDS = [
@@ -61,7 +61,7 @@ class StegoCracker(HackingTool):
     PROJECT_URL = "https://github.com/W1LDN16H7/StegoCracker"
 
 
-class Whitespace(HackingTool):
+class Whitespace(ODKTool):
     TITLE = "Whitespace"
     DESCRIPTION = "Use whitespace and unicode characters for steganography"
     INSTALL_COMMANDS = [
@@ -72,7 +72,7 @@ class Whitespace(HackingTool):
     PROJECT_URL = "https://github.com/beardog108/snow10"
 
 
-class SteganographyTools(HackingToolsCollection):
+class SteganographyTools(ODKToolsCollection):
     TITLE = "Steganography Tools"
     TOOLS = [SteganoHide(), StegnoCracker(), StegoCracker(), Whitespace()]
 

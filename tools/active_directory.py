@@ -1,8 +1,8 @@
-from core import HackingTool
-from core import HackingToolsCollection
+from core import ODKTool
+from core import ODKToolsCollection
 
 
-class BloodHound(HackingTool):
+class BloodHound(ODKTool):
     TITLE = "BloodHound (AD Attack Paths)"
     DESCRIPTION = "Uses graph theory to reveal hidden attack paths in Active Directory/Azure environments."
     INSTALL_COMMANDS = [
@@ -14,7 +14,7 @@ class BloodHound(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class NetExec(HackingTool):
+class NetExec(ODKTool):
     TITLE = "NetExec — nxc (Network Pentesting)"
     DESCRIPTION = "Swiss army knife for pentesting Windows/AD networks. Successor to CrackMapExec."
     INSTALL_COMMANDS = ["pip install --user netexec"]
@@ -23,7 +23,7 @@ class NetExec(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class Impacket(HackingTool):
+class Impacket(ODKTool):
     TITLE = "Impacket (Network Protocol Tools)"
     DESCRIPTION = "Python classes for working with SMB, MSRPC, Kerberos, LDAP, and more."
     INSTALL_COMMANDS = ["pip install --user impacket"]
@@ -32,7 +32,7 @@ class Impacket(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class Responder(HackingTool):
+class Responder(ODKTool):
     TITLE = "Responder (LLMNR/NBT-NS Poisoner)"
     DESCRIPTION = "LLMNR/NBT-NS/MDNS poisoner with rogue authentication servers for credential capture."
     INSTALL_COMMANDS = ["git clone https://github.com/lgandx/Responder.git"]
@@ -41,7 +41,7 @@ class Responder(HackingTool):
     SUPPORTED_OS = ["linux"]
 
 
-class Certipy(HackingTool):
+class Certipy(ODKTool):
     TITLE = "Certipy (AD Certificate Abuse)"
     DESCRIPTION = "Active Directory Certificate Services enumeration and abuse tool."
     INSTALL_COMMANDS = ["pip install --user certipy-ad"]
@@ -50,7 +50,7 @@ class Certipy(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class Kerbrute(HackingTool):
+class Kerbrute(ODKTool):
     TITLE = "Kerbrute (Kerberos Brute Force)"
     DESCRIPTION = "Kerberos pre-auth brute-forcer for username enumeration and password spraying."
     REQUIRES_GO = True
@@ -62,7 +62,7 @@ class Kerbrute(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class ActiveDirectoryTools(HackingToolsCollection):
+class ActiveDirectoryTools(ODKToolsCollection):
     TITLE = "Active Directory Tools"
     DESCRIPTION = "Tools for AD enumeration, attack path discovery, and credential attacks."
     TOOLS = [

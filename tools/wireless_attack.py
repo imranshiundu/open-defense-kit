@@ -1,9 +1,9 @@
 from rich.prompt import Prompt
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 
-class WIFIPumpkin(HackingTool):
+class WIFIPumpkin(ODKTool):
     TITLE = "WiFi-Pumpkin"
     DESCRIPTION = (
         "The WiFi-Pumpkin is a rogue AP framework to easily create fake networks\n"
@@ -21,7 +21,7 @@ class WIFIPumpkin(HackingTool):
     REQUIRES_WIFI = True
 
 
-class pixiewps(HackingTool):
+class pixiewps(ODKTool):
     TITLE = "pixiewps"
     DESCRIPTION = (
         "Pixiewps is a tool written in C used to bruteforce offline the WPS pin\n"
@@ -48,7 +48,7 @@ class pixiewps(HackingTool):
         )
 
 
-class BluePot(HackingTool):
+class BluePot(ODKTool):
     TITLE = "Bluetooth Honeypot GUI Framework"
     DESCRIPTION = (
         "You need at least 1 bluetooth receiver.\n"
@@ -65,7 +65,7 @@ class BluePot(HackingTool):
     REQUIRES_JAVA = True
 
 
-class Fluxion(HackingTool):
+class Fluxion(ODKTool):
     TITLE = "Fluxion"
     DESCRIPTION = "Fluxion is a remake of linset by vk496 with enhanced functionality."
     INSTALL_COMMANDS = [
@@ -78,7 +78,7 @@ class Fluxion(HackingTool):
     REQUIRES_WIFI = True
 
 
-class Wifiphisher(HackingTool):
+class Wifiphisher(ODKTool):
     TITLE = "Wifiphisher"
     DESCRIPTION = (
         "Wifiphisher is a rogue Access Point framework for conducting red team engagements\n"
@@ -95,7 +95,7 @@ class Wifiphisher(HackingTool):
     REQUIRES_WIFI = True
 
 
-class Wifite(HackingTool):
+class Wifite(ODKTool):
     TITLE = "Wifite"
     DESCRIPTION = "Wifite is an automated wireless attack tool."
     INSTALL_COMMANDS = [
@@ -108,7 +108,7 @@ class Wifite(HackingTool):
     REQUIRES_WIFI = True
 
 
-class EvilTwin(HackingTool):
+class EvilTwin(ODKTool):
     TITLE = "EvilTwin"
     DESCRIPTION = (
         "Fakeap — perform Evil Twin Attack by getting credentials "
@@ -121,7 +121,7 @@ class EvilTwin(HackingTool):
     REQUIRES_WIFI = True
 
 
-class Fastssh(HackingTool):
+class Fastssh(ODKTool):
     TITLE = "Fastssh"
     DESCRIPTION = (
         "Fastssh — multi-threaded scan and brute force attack against SSH protocol\n"
@@ -136,7 +136,7 @@ class Fastssh(HackingTool):
     SUPPORTED_OS = ["linux"]
 
 
-class Howmanypeople(HackingTool):
+class Howmanypeople(ODKTool):
     TITLE = "Howmanypeople"
     DESCRIPTION = (
         "Count the number of people around you by monitoring wifi signals.\n"
@@ -154,7 +154,7 @@ class Howmanypeople(HackingTool):
     REQUIRES_WIFI = True
 
 
-class Airgeddon(HackingTool):
+class Airgeddon(ODKTool):
     TITLE = "Airgeddon (Wireless Attack Suite)"
     DESCRIPTION = (
         "Multi-use bash script for auditing wireless networks.\n"
@@ -169,7 +169,7 @@ class Airgeddon(HackingTool):
     PROJECT_URL = "https://github.com/v1s1t0r1sh3r3/airgeddon"
 
 
-class Hcxdumptool(HackingTool):
+class Hcxdumptool(ODKTool):
     TITLE = "hcxdumptool (PMKID Capture)"
     DESCRIPTION = (
         "Capture packets and PMKID hashes from WLAN devices.\n"
@@ -185,7 +185,7 @@ class Hcxdumptool(HackingTool):
     PROJECT_URL = "https://github.com/ZerBea/hcxdumptool"
 
 
-class Hcxtools(HackingTool):
+class Hcxtools(ODKTool):
     TITLE = "hcxtools (PMKID/Hash Conversion)"
     DESCRIPTION = (
         "Convert captured WLAN packets to hashcat/JtR-compatible format.\n"
@@ -200,7 +200,7 @@ class Hcxtools(HackingTool):
     PROJECT_URL = "https://github.com/ZerBea/hcxtools"
 
 
-class Bettercap(HackingTool):
+class Bettercap(ODKTool):
     TITLE = "Bettercap (Network/WiFi/BLE MITM)"
     DESCRIPTION = "Swiss army knife for WiFi, BLE, HID, and Ethernet network recon and MITM attacks."
     SUPPORTED_OS = ["linux"]
@@ -209,7 +209,7 @@ class Bettercap(HackingTool):
     PROJECT_URL = "https://github.com/bettercap/bettercap"
 
 
-class WirelessAttackTools(HackingToolsCollection):
+class WirelessAttackTools(ODKToolsCollection):
     TITLE = "Wireless attack tools"
     TOOLS = [
         WIFIPumpkin(),

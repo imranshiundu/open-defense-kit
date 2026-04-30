@@ -133,8 +133,8 @@ def install_system_packages():
 # ── App directory ──────────────────────────────────────────────────────────────
 
 def _is_source_dir() -> bool:
-    """Check if install.py is being run from a local clone (hackingtool.py exists alongside it)."""
-    return (Path(__file__).resolve().parent / "hackingtool.py").exists()
+    """Check if install.py is being run from a local clone (odk.py exists alongside it)."""
+    return (Path(__file__).resolve().parent / "odk.py").exists()
 
 
 def prepare_install_dir():
@@ -192,11 +192,11 @@ def create_venv_and_install():
 # ── Launcher script ────────────────────────────────────────────────────────────
 
 def create_launcher():
-    launcher = APP_INSTALL_DIR / "hackingtool.sh"
+    launcher = APP_INSTALL_DIR / "odk.sh"
     launcher.write_text(
         "#!/bin/bash\n"
         f'source "{APP_INSTALL_DIR / VENV_DIR_NAME}/bin/activate"\n'
-        f'python3 "{APP_INSTALL_DIR / "hackingtool.py"}" "$@"\n'
+        f'python3 "{APP_INSTALL_DIR / "odk.py"}" "$@"\n'
     )
     launcher.chmod(0o755)
     if APP_BIN_PATH.exists():
@@ -209,7 +209,7 @@ def create_launcher():
 
 def create_user_directories():
     """
-    Create ~/.hackingtool/ and write initial config.json.
+    Create ~/.odk/ and write initial config.json.
     Uses Path.home() — always correct regardless of username or OS.
     Safe to run as root (creates /root/.hackingtool/) or as a normal user.
     """
@@ -229,7 +229,7 @@ def main():
     console.clear()
 
     console.print(Panel(
-        Text(f"HackingTool Installer  {VERSION_DISPLAY}", style="bold magenta"),
+        Text(f"Open Defense Kit Installer  {VERSION_DISPLAY}", style="bold magenta"),
         box=box.DOUBLE, border_style="bright_magenta",
     ))
 
@@ -256,7 +256,7 @@ def main():
 
     console.print(Panel(
         "[bold magenta]Installation complete![/bold magenta]\n\n"
-        "Type [bold cyan]hackingtool[/bold cyan] in a terminal to start.",
+        "Type [bold cyan]odk[/bold cyan] in a terminal to start.",
         border_style="magenta",
     ))
 

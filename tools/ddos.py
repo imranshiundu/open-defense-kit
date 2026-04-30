@@ -2,10 +2,10 @@ import subprocess
 
 from rich.prompt import Prompt
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 
-class DDoSTool(HackingTool):
+class DDoSTool(ODKTool):
     TITLE = "DDoS"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -34,7 +34,7 @@ class DDoSTool(HackingTool):
         )
 
 
-class SlowLoris(HackingTool):
+class SlowLoris(ODKTool):
     TITLE = "SlowLoris"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -48,7 +48,7 @@ class SlowLoris(HackingTool):
         subprocess.run(["slowloris", target_site])
 
 
-class Asyncrone(HackingTool):
+class Asyncrone(ODKTool):
     TITLE = "Asyncrone | Multifunction SYN Flood DDoS Weapon"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -74,7 +74,7 @@ class Asyncrone(HackingTool):
         )
 
 
-class UFONet(HackingTool):
+class UFONet(ODKTool):
     TITLE = "UFOnet"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -89,7 +89,7 @@ class UFONet(HackingTool):
     PROJECT_URL = "https://github.com/epsylon/ufonet"
 
 
-class GoldenEye(HackingTool):
+class GoldenEye(ODKTool):
     TITLE = "GoldenEye"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = (
@@ -111,7 +111,7 @@ class GoldenEye(HackingTool):
                        cwd=str(get_tools_dir() / "GoldenEye"))
 
 
-class Saphyra(HackingTool):
+class Saphyra(ODKTool):
     TITLE = "SaphyraDDoS"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "A Python DDoS script for SECURITY TESTING PURPOSES ONLY."
@@ -133,7 +133,7 @@ class Saphyra(HackingTool):
         )
 
 
-class DDOSTools(HackingToolsCollection):
+class DDOSTools(ODKToolsCollection):
     TITLE = "DDOS Attack Tools"
     TOOLS = [DDoSTool(), SlowLoris(), Asyncrone(), UFONet(), GoldenEye(), Saphyra()]
 

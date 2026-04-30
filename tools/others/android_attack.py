@@ -1,11 +1,11 @@
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich import box
 
 
-class Keydroid(HackingTool):
+class Keydroid(ODKTool):
     TITLE = "Keydroid"
     DESCRIPTION = "Android Keylogger + Reverse Shell\n" \
                   "[!] You have to install Some Manually Refer Below Link:\n " \
@@ -16,7 +16,7 @@ class Keydroid(HackingTool):
     PROJECT_URL = "https://github.com/F4dl0/keydroid"
 
 
-class MySMS(HackingTool):
+class MySMS(ODKTool):
     TITLE = "MySMS"
     DESCRIPTION = "Script that generates an Android App to hack SMS through WAN \n" \
                   "[!] You have to install Some Manually Refer Below Link:\n\t " \
@@ -28,7 +28,7 @@ class MySMS(HackingTool):
     PROJECT_URL = "https://github.com/papusingh2sms/mysms"
 
 
-class LockPhish(HackingTool):
+class LockPhish(ODKTool):
     TITLE = "Lockphish (Grab target LOCK PIN)"
     DESCRIPTION = "Lockphish it's the first tool for phishing attacks on the " \
                   "lock screen, designed to\n Grab Windows credentials,Android" \
@@ -40,7 +40,7 @@ class LockPhish(HackingTool):
     PROJECT_URL = "https://github.com/JasonJerry/lockphish"
 
 
-class Droidcam(HackingTool):
+class Droidcam(ODKTool):
     TITLE = "DroidCam (Capture Image)"
     DESCRIPTION = "Powerful Tool For Grab Front Camera Snap Using A Link"
     SUPPORTED_OS = ["linux"]
@@ -53,7 +53,7 @@ class Droidcam(HackingTool):
     PROJECT_URL = "https://github.com/kinghacker0/WishFish"
 
 
-class EvilApp(HackingTool):
+class EvilApp(ODKTool):
     TITLE = "EvilApp (Hijack Session)"
     DESCRIPTION = "EvilApp is a script to generate Android App that can " \
                   "hijack authenticated sessions in cookies."
@@ -64,7 +64,7 @@ class EvilApp(HackingTool):
     PROJECT_URL = "https://github.com/crypticterminal/EvilApp"
 
 
-class AndroidAttackTools(HackingToolsCollection):
+class AndroidAttackTools(ODKToolsCollection):
     TITLE = "Android Hacking tools"
     TOOLS = [
         Keydroid(),

@@ -1,8 +1,8 @@
-from core import HackingTool
-from core import HackingToolsCollection
+from core import ODKTool
+from core import ODKToolsCollection
 
 
-class Prowler(HackingTool):
+class Prowler(ODKTool):
     TITLE = "Prowler (Cloud Security Scanner)"
     DESCRIPTION = "Open-source security tool for AWS, Azure, GCP, and Kubernetes assessments."
     INSTALL_COMMANDS = ["pip install --user prowler"]
@@ -11,7 +11,7 @@ class Prowler(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class ScoutSuite(HackingTool):
+class ScoutSuite(ODKTool):
     TITLE = "ScoutSuite (Multi-Cloud Auditing)"
     DESCRIPTION = "Multi-cloud security auditing tool for AWS, Azure, GCP, Alibaba, and Oracle."
     INSTALL_COMMANDS = ["pip install --user scoutsuite"]
@@ -20,7 +20,7 @@ class ScoutSuite(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class Pacu(HackingTool):
+class Pacu(ODKTool):
     TITLE = "Pacu (AWS Exploitation Framework)"
     DESCRIPTION = "AWS exploitation framework for offensive security testing of AWS environments."
     INSTALL_COMMANDS = ["pip install --user pacu"]
@@ -29,7 +29,7 @@ class Pacu(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class Trivy(HackingTool):
+class Trivy(ODKTool):
     TITLE = "Trivy (Container/K8s Scanner)"
     DESCRIPTION = "Comprehensive vulnerability scanner for containers, Kubernetes, IaC, and code."
     INSTALL_COMMANDS = [
@@ -40,7 +40,7 @@ class Trivy(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class CloudSecurityTools(HackingToolsCollection):
+class CloudSecurityTools(ODKToolsCollection):
     TITLE = "Cloud Security Tools"
     DESCRIPTION = "Tools for cloud infrastructure security assessment and exploitation."
     TOOLS = [

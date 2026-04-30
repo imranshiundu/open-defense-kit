@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-INSTALL_DIR="/usr/share/hackingtool"
+INSTALL_DIR="/usr/share/open-defense-kit"
 
 if [[ $EUID -ne 0 ]]; then
     echo "[ERROR] Run as root: sudo bash update.sh"
@@ -31,4 +31,4 @@ else
     echo "[WARN] venv not found — skipping pip update. Run install.py to create it."
 fi
 
-echo "[✔] Hackingtool updated. Run 'hackingtool' to start."
+echo "[✔] Open Defense Kit updated. Run 'odk' to start."

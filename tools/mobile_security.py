@@ -1,8 +1,8 @@
-from core import HackingTool
-from core import HackingToolsCollection
+from core import ODKTool
+from core import ODKToolsCollection
 
 
-class MobSF(HackingTool):
+class MobSF(ODKTool):
     TITLE = "MobSF (Mobile Security Framework)"
     DESCRIPTION = "All-in-one mobile app pentesting, malware analysis, and security assessment."
     INSTALL_COMMANDS = [
@@ -14,7 +14,7 @@ class MobSF(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class Frida(HackingTool):
+class Frida(ODKTool):
     TITLE = "Frida (Dynamic Instrumentation)"
     DESCRIPTION = "Dynamic instrumentation toolkit for runtime hooking on Android, iOS, Windows, macOS, Linux."
     INSTALL_COMMANDS = ["pip install --user frida-tools"]
@@ -23,7 +23,7 @@ class Frida(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class Objection(HackingTool):
+class Objection(ODKTool):
     TITLE = "Objection (Mobile Runtime Exploration)"
     DESCRIPTION = "Runtime mobile exploration toolkit powered by Frida — no jailbreak/root required."
     INSTALL_COMMANDS = ["pip install --user objection"]
@@ -32,7 +32,7 @@ class Objection(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class MobileSecurityTools(HackingToolsCollection):
+class MobileSecurityTools(ODKToolsCollection):
     TITLE = "Mobile Security Tools"
     DESCRIPTION = "Tools for Android/iOS application security testing and analysis."
     TOOLS = [

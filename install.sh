@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
 # ──────────────────────────────────────────────────────────────────────────────
-# HackingTool — One-liner installer
+# Open Defense Kit — One-liner installer
 #
 # Usage:
-#   curl -sSL https://raw.githubusercontent.com/Z4nzu/hackingtool/master/install.sh | sudo bash
+#   curl -sSL https://raw.githubusercontent.com/imranshiundu/open-defense-kit/main/install.sh | sudo bash
 #
 # What it does:
 #   1. Checks prerequisites (Python 3.10+, git, pip, venv)
-#   2. Clones the repository to /usr/share/hackingtool
+#   2. Clones the repository to /usr/share/open-defense-kit
 #   3. Creates a Python venv and installs requirements
-#   4. Creates a launcher at /usr/bin/hackingtool
-#   5. Creates user directories at ~/.hackingtool/
+#   4. Creates a launcher at /usr/bin/odk
+#   5. Creates user directories at ~/.odk/
 # ──────────────────────────────────────────────────────────────────────────────
 set -euo pipefail
 
-REPO_URL="https://github.com/Z4nzu/hackingtool.git"
-INSTALL_DIR="/usr/share/hackingtool"
-BIN_PATH="/usr/bin/hackingtool"
-CONFIG_DIR="${SUDO_USER:+$(eval echo ~"$SUDO_USER")}/.hackingtool"
+REPO_URL="https://github.com/imranshiundu/open-defense-kit.git"
+INSTALL_DIR="/usr/share/open-defense-kit"
+BIN_PATH="/usr/bin/odk"
+CONFIG_DIR="${SUDO_USER:+$(eval echo ~"$SUDO_USER")}/.odk"
 # Fallback if not run via sudo
-: "${CONFIG_DIR:=$HOME/.hackingtool}"
+: "${CONFIG_DIR:=$HOME/.odk}"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -39,7 +39,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 echo ""
-echo -e "${BOLD}${CYAN}  ⚔  HackingTool Installer${RESET}"
+echo -e "${BOLD}${CYAN}  ⚔  Open Defense Kit Installer${RESET}"
 echo -e "  ─────────────────────────────────────"
 echo ""
 
@@ -124,8 +124,8 @@ ok "Dependencies installed"
 # ── Create launcher ──────────────────────────────────────────────────────────
 cat > "$BIN_PATH" << 'LAUNCHER'
 #!/bin/bash
-source "/usr/share/hackingtool/venv/bin/activate"
-python3 "/usr/share/hackingtool/hackingtool.py" "$@"
+source "/usr/share/open-defense-kit/venv/bin/activate"
+python3 "/usr/share/open-defense-kit/odk.py" "$@"
 LAUNCHER
 chmod 755 "$BIN_PATH"
 ok "Launcher installed at $BIN_PATH"
@@ -149,5 +149,5 @@ ok "User config: $CONFIG_DIR"
 # ── Done ──────────────────────────────────────────────────────────────────────
 echo ""
 echo -e "${GREEN}${BOLD}  ✔  Installation complete!${RESET}"
-echo -e "  Type ${BOLD}${CYAN}hackingtool${RESET} to start."
+echo -e "  Type ${BOLD}${CYAN}odk${RESET} to start."
 echo ""

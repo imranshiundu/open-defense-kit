@@ -1,11 +1,11 @@
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich import box
 
 
-class WifiJammerNG(HackingTool):
+class WifiJammerNG(ODKTool):
     TITLE = "WifiJammer-NG"
     DESCRIPTION = "Continuously jam all wifi clients and access points within range."
     SUPPORTED_OS = ["linux"]
@@ -20,7 +20,7 @@ class WifiJammerNG(HackingTool):
     PROJECT_URL = "https://github.com/MisterBianco/wifijammer-ng"
 
 
-class KawaiiDeauther(HackingTool):
+class KawaiiDeauther(ODKTool):
     TITLE = "KawaiiDeauther"
     DESCRIPTION = "Kawaii Deauther is a pentest toolkit whose goal is to perform \n " \
                   "jam on WiFi clients/routers and spam many fake AP for testing purposes."
@@ -34,7 +34,7 @@ class KawaiiDeauther(HackingTool):
     PROJECT_URL = "https://github.com/aryanrtm/KawaiiDeauther"
 
 
-class WifiJammingTools(HackingToolsCollection):
+class WifiJammingTools(ODKToolsCollection):
     TITLE = "Wifi Deauthenticate"
     TOOLS = [
         WifiJammerNG(),

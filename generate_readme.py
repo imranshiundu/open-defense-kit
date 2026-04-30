@@ -4,9 +4,9 @@ import re
 from rich.console import Console
 from rich.theme import Theme
 
-from core import HackingTool
-from core import HackingToolsCollection
-from hackingtool import all_tools
+from core import ODKTool
+from core import ODKToolsCollection
+from odk import all_tools
 
 _theme = Theme({"purple": "#7B61FF"})
 console = Console(theme=_theme)
@@ -19,7 +19,7 @@ def sanitize_anchor(s):
 def get_toc(tools, indentation = ""):
     md = ""
     for tool in tools:
-        if isinstance(tool, HackingToolsCollection):
+        if isinstance(tool, ODKToolsCollection):
             md += (indentation + "- [{}](#{})\n".format(
                 tool.TITLE, sanitize_anchor(tool.TITLE)))
             md += get_toc(tool.TOOLS, indentation = indentation + '    ')
@@ -29,10 +29,10 @@ def get_toc(tools, indentation = ""):
 def get_tools_toc(tools, indentation = "##"):
     md = ""
     for tool in tools:
-        if isinstance(tool, HackingToolsCollection):
+        if isinstance(tool, ODKToolsCollection):
             md += (indentation + "# {}\n".format(tool.TITLE))
             md += get_tools_toc(tool.TOOLS, indentation = indentation + '#')
-        elif isinstance(tool, HackingTool):
+        elif isinstance(tool, ODKTool):
             if tool.PROJECT_URL:
                 md += ("- [{}]({})\n".format(tool.TITLE, tool.PROJECT_URL))
             else:

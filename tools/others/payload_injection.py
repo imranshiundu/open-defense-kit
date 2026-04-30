@@ -1,11 +1,11 @@
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich import box
 
 
-class DebInject(HackingTool):
+class DebInject(ODKTool):
     TITLE = "Debinject"
     DESCRIPTION = "Debinject is a tool that inject malicious code into *.debs"
     INSTALL_COMMANDS = [
@@ -14,7 +14,7 @@ class DebInject(HackingTool):
     PROJECT_URL = "https://github.com/UndeadSec/Debinject"
 
 
-class Pixload(HackingTool):
+class Pixload(ODKTool):
     TITLE = "Pixload"
     DESCRIPTION = "Pixload -- Image Payload Creating tools \n " \
                   "Pixload is Set of tools for creating/injecting payload into images."
@@ -28,7 +28,7 @@ class Pixload(HackingTool):
         super().__init__(runnable = False)
 
 
-class PayloadInjectorTools(HackingToolsCollection):
+class PayloadInjectorTools(ODKToolsCollection):
     TITLE = "Payload Injector"
     TOOLS = [
         DebInject(),

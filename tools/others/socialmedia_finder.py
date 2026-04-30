@@ -1,14 +1,14 @@
 import os
 import subprocess
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich import box
 
 
-class FacialFind(HackingTool):
+class FacialFind(ODKTool):
     TITLE = "Find SocialMedia By Facial Recognation System"
     DESCRIPTION = "A Social Media Mapping Tool that correlates profiles\n " \
                   "via facial recognition across different sites."
@@ -38,7 +38,7 @@ class FacialFind(HackingTool):
         )
 
 
-class FindUser(HackingTool):
+class FindUser(ODKTool):
     TITLE = "Find SocialMedia By UserName"
     DESCRIPTION = "Find usernames across over 75 social networks"
     INSTALL_COMMANDS = [
@@ -49,7 +49,7 @@ class FindUser(HackingTool):
     PROJECT_URL = "https://github.com/xHak9x/finduser"
 
 
-class Sherlock(HackingTool):
+class Sherlock(ODKTool):
     TITLE = "Sherlock"
     DESCRIPTION = "Hunt down social media accounts by username across social networks \n " \
                   "For More Usage \n" \
@@ -71,7 +71,7 @@ class Sherlock(HackingTool):
         )
 
 
-class SocialScan(HackingTool):
+class SocialScan(ODKTool):
     TITLE = "SocialScan | Username or Email"
     DESCRIPTION = "Check email address and username availability on online " \
                   "platforms with 100% accuracy"
@@ -84,7 +84,7 @@ class SocialScan(HackingTool):
         subprocess.run(["sudo", "socialscan", f"{name}"])
 
 
-class SocialMediaFinderTools(HackingToolsCollection):
+class SocialMediaFinderTools(ODKToolsCollection):
     TITLE = "SocialMedia Finder"
     TOOLS = [
         FacialFind(),

@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 from tools.others.android_attack import AndroidAttackTools
 from tools.others.email_verifier import EmailVerifyTools
 from tools.others.hash_crack import HashCrackingTools
@@ -17,7 +17,7 @@ from rich.panel import Panel
 from rich.prompt import Prompt
 
 
-class HatCloud(HackingTool):
+class HatCloud(ODKTool):
     TITLE = "HatCloud(Bypass CloudFlare for IP)"
     DESCRIPTION = "HatCloud build in Ruby. It makes bypass in CloudFlare for " \
                   "discover real IP."
@@ -35,7 +35,7 @@ class HatCloud(HackingTool):
         )
 
 
-class OtherTools(HackingToolsCollection):
+class OtherTools(ODKToolsCollection):
     TITLE = "Other tools"
     TOOLS = [
         SocialMediaBruteforceTools(),

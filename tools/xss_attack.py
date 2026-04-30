@@ -3,10 +3,10 @@ import subprocess
 from rich.panel import Panel
 from rich.prompt import Prompt
 
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 
-class Dalfox(HackingTool):
+class Dalfox(ODKTool):
     TITLE = "DalFox (Finder of XSS)"
     DESCRIPTION = "XSS Scanning and Parameter Analysis tool."
     INSTALL_COMMANDS = [
@@ -19,7 +19,7 @@ class Dalfox(HackingTool):
     PROJECT_URL = "https://github.com/hahwul/dalfox"
 
 
-class XSSPayloadGenerator(HackingTool):
+class XSSPayloadGenerator(ODKTool):
     TITLE = "XSS Payload Generator"
     DESCRIPTION = "XSS PAYLOAD GENERATOR - XSS SCANNER - XSS DORK FINDER"
     INSTALL_COMMANDS = [
@@ -30,7 +30,7 @@ class XSSPayloadGenerator(HackingTool):
     PROJECT_URL = "https://github.com/capture0x/XSS-LOADER.git"
 
 
-class XSSFinder(HackingTool):
+class XSSFinder(ODKTool):
     TITLE = "Extended XSS Searcher and Finder"
     DESCRIPTION = "Extended XSS Searcher and Finder"
     INSTALL_COMMANDS = [
@@ -57,7 +57,7 @@ class XSSFinder(HackingTool):
         ))
 
 
-class XSSFreak(HackingTool):
+class XSSFreak(ODKTool):
     TITLE = "XSS-Freak"
     DESCRIPTION = "An XSS scanner fully written in Python 3 from scratch."
     INSTALL_COMMANDS = [
@@ -68,7 +68,7 @@ class XSSFreak(HackingTool):
     PROJECT_URL = "https://github.com/PR0PH3CY33/XSS-Freak"
 
 
-class XSpear(HackingTool):
+class XSpear(ODKTool):
     TITLE = "XSpear"
     DESCRIPTION = "XSpear is an XSS Scanner built on Ruby Gems."
     INSTALL_COMMANDS = ["gem install XSpear"]
@@ -76,7 +76,7 @@ class XSpear(HackingTool):
     PROJECT_URL = "https://github.com/hahwul/XSpear"
 
 
-class XSSCon(HackingTool):
+class XSSCon(ODKTool):
     TITLE = "XSSCon"
     INSTALL_COMMANDS = [
         "git clone https://github.com/menkrep1337/XSSCon.git",
@@ -96,7 +96,7 @@ class XSSCon(HackingTool):
                        cwd=str(get_tools_dir() / "XSSCon"))
 
 
-class XanXSS(HackingTool):
+class XanXSS(ODKTool):
     TITLE = "XanXSS"
     DESCRIPTION = "Reflected XSS searching tool that creates payloads from templates."
     INSTALL_COMMANDS = ["git clone https://github.com/Ekultek/XanXSS.git"]
@@ -108,7 +108,7 @@ class XanXSS(HackingTool):
                        cwd=str(get_tools_dir() / "XanXSS"))
 
 
-class XSSStrike(HackingTool):
+class XSSStrike(ODKTool):
     TITLE = "Advanced XSS Detection Suite"
     DESCRIPTION = "XSStrike is a Python-based tool designed to detect and exploit XSS vulnerabilities."
     INSTALL_COMMANDS = [
@@ -122,7 +122,7 @@ class XSSStrike(HackingTool):
         super().__init__(runnable=False)
 
 
-class RVuln(HackingTool):
+class RVuln(ODKTool):
     TITLE = "RVuln"
     SUPPORTED_OS = ["linux"]
     DESCRIPTION = "Multi-threaded and Automated Web Vulnerability Scanner written in Rust."
@@ -137,7 +137,7 @@ class RVuln(HackingTool):
     PROJECT_URL = "https://github.com/iinc0gnit0/RVuln"
 
 
-class XSSAttackTools(HackingToolsCollection):
+class XSSAttackTools(ODKToolsCollection):
     TITLE = "XSS Attack Tools"
     TOOLS = [
         Dalfox(),

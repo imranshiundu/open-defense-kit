@@ -1,11 +1,11 @@
 import subprocess
-from core import HackingTool, HackingToolsCollection, console
+from core import ODKTool, ODKToolsCollection, console
 
 from rich.panel import Panel
 from rich.prompt import Prompt
 
 
-class Web2Attack(HackingTool):
+class Web2Attack(ODKTool):
     TITLE = "Web2Attack"
     DESCRIPTION = "Web hacking framework with tools, exploits by python"
     INSTALL_COMMANDS = [
@@ -15,7 +15,7 @@ class Web2Attack(HackingTool):
     PROJECT_URL = "https://github.com/santatic/web2attack"
 
 
-class Skipfish(HackingTool):
+class Skipfish(ODKTool):
     TITLE = "Skipfish"
     DESCRIPTION = (
         "Skipfish – Fully automated, active web application "
@@ -31,7 +31,7 @@ class Skipfish(HackingTool):
         super().__init__(installable=False)
 
 
-class SubDomainFinder(HackingTool):
+class SubDomainFinder(ODKTool):
     TITLE = "SubDomain Finder"
     DESCRIPTION = (
         "Sublist3r is a python tool designed to enumerate "
@@ -48,7 +48,7 @@ class SubDomainFinder(HackingTool):
     PROJECT_URL = "https://github.com/aboul3la/Sublist3r"
 
 
-class CheckURL(HackingTool):
+class CheckURL(ODKTool):
     TITLE = "CheckURL"
     DESCRIPTION = (
         "Detect evil urls that uses IDN Homograph Attack.\n\t"
@@ -59,7 +59,7 @@ class CheckURL(HackingTool):
     PROJECT_URL = "https://github.com/UndeadSec/checkURL"
 
 
-class Blazy(HackingTool):
+class Blazy(ODKTool):
     TITLE = "Blazy(Also Find ClickJacking)"
     DESCRIPTION = "Blazy is a modern login page bruteforcer"
     INSTALL_COMMANDS = []
@@ -72,7 +72,7 @@ class Blazy(HackingTool):
         super().__init__(installable=False, runnable=False)
 
 
-class SubDomainTakeOver(HackingTool):
+class SubDomainTakeOver(ODKTool):
     TITLE = "Sub-Domain TakeOver"
     DESCRIPTION = (
         "Sub-domain takeover vulnerability occur when a sub-domain "
@@ -90,7 +90,7 @@ class SubDomainTakeOver(HackingTool):
         super().__init__(runnable=False)
 
 
-class Dirb(HackingTool):
+class Dirb(ODKTool):
     TITLE = "Dirb"
     DESCRIPTION = (
         "DIRB is a Web Content Scanner. It looks for existing "
@@ -109,7 +109,7 @@ class Dirb(HackingTool):
         subprocess.run(["sudo", "dirb", uinput])
 
 
-class Nuclei(HackingTool):
+class Nuclei(ODKTool):
     TITLE = "Nuclei (Vulnerability Scanner)"
     DESCRIPTION = (
         "Fast, template-based vulnerability scanner used by 50k+ security teams.\n"
@@ -124,7 +124,7 @@ class Nuclei(HackingTool):
     PROJECT_URL = "https://github.com/projectdiscovery/nuclei"
 
 
-class Ffuf(HackingTool):
+class Ffuf(ODKTool):
     TITLE = "ffuf (Web Fuzzer)"
     DESCRIPTION = (
         "Fast web fuzzer — content discovery, parameter fuzzing, vhost discovery.\n"
@@ -138,7 +138,7 @@ class Ffuf(HackingTool):
     PROJECT_URL = "https://github.com/ffuf/ffuf"
 
 
-class Feroxbuster(HackingTool):
+class Feroxbuster(ODKTool):
     TITLE = "Feroxbuster (Directory Brute Force)"
     DESCRIPTION = (
         "Fast, recursive content discovery tool written in Rust.\n"
@@ -153,7 +153,7 @@ class Feroxbuster(HackingTool):
     PROJECT_URL = "https://github.com/epi052/feroxbuster"
 
 
-class Nikto(HackingTool):
+class Nikto(ODKTool):
     TITLE = "Nikto (Web Server Scanner)"
     DESCRIPTION = (
         "Scan web servers for dangerous files, outdated software, misconfigurations.\n"
@@ -165,7 +165,7 @@ class Nikto(HackingTool):
     PROJECT_URL = "https://github.com/sullo/nikto"
 
 
-class Wafw00f(HackingTool):
+class Wafw00f(ODKTool):
     TITLE = "wafw00f (WAF Detector)"
     DESCRIPTION = (
         "Fingerprint and identify Web Application Firewalls (WAF).\n"
@@ -179,7 +179,7 @@ class Wafw00f(HackingTool):
     PROJECT_URL = "https://github.com/EnableSecurity/wafw00f"
 
 
-class Katana(HackingTool):
+class Katana(ODKTool):
     TITLE = "Katana (Web Crawler)"
     DESCRIPTION = (
         "Next-generation crawling and spidering framework from ProjectDiscovery.\n"
@@ -193,7 +193,7 @@ class Katana(HackingTool):
     PROJECT_URL = "https://github.com/projectdiscovery/katana"
 
 
-class Gobuster(HackingTool):
+class Gobuster(ODKTool):
     TITLE = "Gobuster (Dir/DNS/Vhost Brute Force)"
     DESCRIPTION = "Directory/file, DNS, and vhost brute-forcing tool written in Go."
     REQUIRES_GO = True
@@ -202,7 +202,7 @@ class Gobuster(HackingTool):
     PROJECT_URL = "https://github.com/OJ/gobuster"
 
 
-class Dirsearch(HackingTool):
+class Dirsearch(ODKTool):
     TITLE = "Dirsearch (Web Path Discovery)"
     DESCRIPTION = "Web path brute-forcing tool for discovering directories and files on web servers."
     INSTALL_COMMANDS = ["pip install --user dirsearch"]
@@ -210,7 +210,7 @@ class Dirsearch(HackingTool):
     PROJECT_URL = "https://github.com/maurosoria/dirsearch"
 
 
-class OwaspZap(HackingTool):
+class OwaspZap(ODKTool):
     TITLE = "OWASP ZAP (Web App Scanner)"
     DESCRIPTION = "Full-featured web application security scanner — proxy, spider, fuzzer, scanner."
     SUPPORTED_OS = ["linux"]
@@ -219,7 +219,7 @@ class OwaspZap(HackingTool):
     PROJECT_URL = "https://github.com/zaproxy/zaproxy"
 
 
-class TestSSL(HackingTool):
+class TestSSL(ODKTool):
     TITLE = "testssl.sh (TLS/SSL Checker)"
     DESCRIPTION = "Check TLS/SSL ciphers, protocols, and cryptographic flaws on any port."
     INSTALL_COMMANDS = ["git clone https://github.com/drwetter/testssl.sh.git"]
@@ -227,7 +227,7 @@ class TestSSL(HackingTool):
     PROJECT_URL = "https://github.com/drwetter/testssl.sh"
 
 
-class Arjun(HackingTool):
+class Arjun(ODKTool):
     TITLE = "Arjun (HTTP Parameter Discovery)"
     DESCRIPTION = "HTTP parameter discovery suite that finds hidden GET/POST parameters."
     INSTALL_COMMANDS = ["pip install --user arjun"]
@@ -235,7 +235,7 @@ class Arjun(HackingTool):
     PROJECT_URL = "https://github.com/s0md3v/Arjun"
 
 
-class Caido(HackingTool):
+class Caido(ODKTool):
     TITLE = "Caido (Web Security Auditing)"
     DESCRIPTION = "Lightweight, modern web security auditing toolkit — Burp Suite alternative written in Rust."
     INSTALL_COMMANDS = [
@@ -246,7 +246,7 @@ class Caido(HackingTool):
     SUPPORTED_OS = ["linux", "macos"]
 
 
-class Mitmproxy(HackingTool):
+class Mitmproxy(ODKTool):
     TITLE = "mitmproxy (Intercepting Proxy)"
     DESCRIPTION = "Interactive TLS-capable intercepting HTTP proxy for pentesters and developers."
     INSTALL_COMMANDS = ["pip install --user mitmproxy"]
@@ -254,7 +254,7 @@ class Mitmproxy(HackingTool):
     PROJECT_URL = "https://github.com/mitmproxy/mitmproxy"
 
 
-class WebAttackTools(HackingToolsCollection):
+class WebAttackTools(ODKToolsCollection):
     TITLE = "Web Attack tools"
     DESCRIPTION = ""
     TOOLS = [

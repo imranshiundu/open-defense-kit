@@ -1,5 +1,5 @@
 # docker-compose.yml
-# Use: docker compose up -d  then  docker exec -it hackingtool bash
+# Use: docker compose up -d  then  docker exec -it odk bash
 #
 # Profiles:
 #   (default)  — runs the built image; code is embedded at build time
@@ -7,34 +7,34 @@
 #                docker compose --profile dev up
 
 services:
-  hackingtool:
+  odk:
     build:
       context: .
       dockerfile: Dockerfile
-    image: hackingtool:latest
-    container_name: hackingtool
+    image: odk:latest
+    container_name: odk
     stdin_open: true
     tty: true
     # Persist tools installed at runtime across container restarts
     volumes:
-      - hackingtool_data:/root/.hackingtool
+      - odk_data:/root/.odk
     restart: unless-stopped
 
-  hackingtool-dev:
+  odk-dev:
     build:
       context: .
       dockerfile: Dockerfile
-    image: hackingtool:latest
-    container_name: hackingtool-dev
+    image: odk:latest
+    container_name: odk-dev
     stdin_open: true
     tty: true
     profiles:
       - dev
     volumes:
       # Live source mount — code changes are visible without rebuilding
-      - .:/root/hackingtool
-      - hackingtool_data:/root/.hackingtool
+      - .:/root/open-defense-kit
+      - odk_data:/root/.odk
     restart: "no"
 
 volumes:
-  hackingtool_data:
+  odk_data:
