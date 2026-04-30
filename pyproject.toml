@@ -1,0 +1,31 @@
+[project]
+name = "open-defense-kit"
+version = "0.1.0"
+description = "A defense-first security learning and audit toolkit."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "Imran Shiundu" }
+]
+keywords = ["security", "defense", "blue-team", "audit", "education"]
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Intended Audience :: Education",
+  "Intended Audience :: Developers",
+  "Topic :: Security",
+  "Topic :: Education",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+dependencies = []
+
+[project.scripts]
+odkit = "odkit.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
