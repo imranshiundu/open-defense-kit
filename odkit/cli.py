@@ -6,6 +6,7 @@ import argparse
 from pathlib import Path
 
 from odkit import __version__
+from odkit.legacy_audit import audit_legacy_path, findings_to_markdown
 from odkit.module_registry import get_module, list_modules
 from odkit.modules.local_secret_patterns import scan_path
 from odkit.safety import RiskLevel, is_allowed_risk, permission_statement
@@ -43,6 +44,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="Scan local files you own for common secret-like patterns.",
     )
     scan_parser.add_argument("path", help="Local file or folder to scan.")
+
+    audit_parser = subparsers.add_parser(
+        "audit-legacy",
+        help="Statically audit quarantined legacy code without executing it.",
+    )
+    audit_parser.add_argument("path", help="Legacy file or folder to audit.")
+    audit_parser.add_argument(
+        "--markdown",
+        action="store_true",
+        help="Print the audit report as markdown.",
+    )
 
     return parser
 
@@ -103,6 +115,30 @@ def run_secret_scan(raw_path: str) -> int:
     return 2
 
 
+def run_legacy_audit(raw_path: str, markdown: bool) -> int:
+    path = Path(raw_path).expanduser().resolve()
+    if not path.exists():
+        print(f"Path not found: {path}")
+        return 1
+
+    findings = audit_legacy_path(path)
+    if markdown:
+        print(findings_to_markdown(findings))
+        return 0 if not findings else 2
+
+    if not findings:
+        print("No risky legacy patterns found by the basic static scanner.")
+        return 0
+
+    print(f"Found {len(findings)} risky legacy pattern(s).")
+    for finding in findings:
+        print(
+            f"{finding.path}:{finding.line}\t{finding.category}\t"
+            f"{finding.description}\t{finding.preview}"
+        )
+    return 2
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -128,6 +164,9 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "scan-secrets":
         return run_secret_scan(args.path)
+
+    if args.command == "audit-legacy":
+        return run_legacy_audit(args.path, args.markdown)
 
     parser.print_help()
     return 0
