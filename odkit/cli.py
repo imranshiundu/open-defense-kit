@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 import argparse
+from pathlib import Path
 
 from odkit import __version__
+from odkit.module_registry import get_module, list_modules
+from odkit.modules.local_secret_patterns import scan_path
 from odkit.safety import RiskLevel, is_allowed_risk, permission_statement
 
 
@@ -29,6 +32,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     permission_parser.add_argument("target", help="Owned target or lab target.")
 
+    modules_parser = subparsers.add_parser("modules", help="List or inspect safe modules.")
+    modules_subparsers = modules_parser.add_subparsers(dest="modules_command")
+    modules_subparsers.add_parser("list", help="List available modules.")
+    info_parser = modules_subparsers.add_parser("info", help="Show module details.")
+    info_parser.add_argument("slug", help="Module slug.")
+
+    scan_parser = subparsers.add_parser(
+        "scan-secrets",
+        help="Scan local files you own for common secret-like patterns.",
+    )
+    scan_parser.add_argument("path", help="Local file or folder to scan.")
+
     return parser
 
 
@@ -37,7 +52,7 @@ def print_doctor() -> None:
     print("Status: scaffold ready")
     print("Root required: no")
     print("Dangerous modules enabled: no")
-    print("Default mode: documentation and safety checks only")
+    print("Default mode: local-only documentation and safety checks")
 
 
 def print_safety() -> None:
@@ -45,6 +60,47 @@ def print_safety() -> None:
     print("Allowed: authorized learning, owned asset review, lab testing, defensive audits.")
     print("Prohibited: phishing, credential theft, DDoS, RAT/C2, unauthorized access, spying.")
     print(f"Prohibited modules runnable: {is_allowed_risk(RiskLevel.PROHIBITED)}")
+
+
+def print_modules() -> None:
+    for module in list_modules():
+        status = "enabled" if module.enabled else "disabled"
+        print(f"{module.slug}\t{module.safety.risk.value}\t{status}\t{module.safety.name}")
+
+
+def print_module_info(slug: str) -> int:
+    module = get_module(slug)
+    if module is None:
+        print(f"Unknown module: {slug}")
+        return 1
+
+    safety = module.safety
+    print(safety.name)
+    print(f"Slug: {module.slug}")
+    print(f"Category: {safety.category}")
+    print(f"Risk: {safety.risk.value}")
+    print(f"Requires authorization: {safety.requires_authorization}")
+    print(f"Network activity: {safety.network_activity}")
+    print(f"Docs: {module.docs}")
+    print(f"Description: {safety.description}")
+    return 0
+
+
+def run_secret_scan(raw_path: str) -> int:
+    path = Path(raw_path).expanduser().resolve()
+    if not path.exists():
+        print(f"Path not found: {path}")
+        return 1
+
+    findings = scan_path(path)
+    if not findings:
+        print("No common secret-like patterns found.")
+        return 0
+
+    print(f"Found {len(findings)} possible secret-like pattern(s). Review manually.")
+    for finding in findings:
+        print(f"{finding.path}:{finding.line}\t{finding.pattern}\t{finding.preview}")
+    return 2
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -62,6 +118,16 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "permission":
         print(permission_statement(args.target))
         return 0
+
+    if args.command == "modules":
+        if args.modules_command == "list":
+            print_modules()
+            return 0
+        if args.modules_command == "info":
+            return print_module_info(args.slug)
+
+    if args.command == "scan-secrets":
+        return run_secret_scan(args.path)
 
     parser.print_help()
     return 0
