@@ -7,6 +7,7 @@ from pathlib import Path
 
 from odkit import __version__
 from odkit.legacy_audit import audit_legacy_path, findings_to_markdown
+from odkit.migration_classifier import classify_path, classifications_to_markdown
 from odkit.module_registry import get_module, list_modules
 from odkit.modules.local_secret_patterns import scan_path
 from odkit.safety import RiskLevel, is_allowed_risk, permission_statement
@@ -54,6 +55,17 @@ def build_parser() -> argparse.ArgumentParser:
         "--markdown",
         action="store_true",
         help="Print the audit report as markdown.",
+    )
+
+    classify_parser = subparsers.add_parser(
+        "classify-legacy",
+        help="Classify quarantined legacy code for safe migration decisions.",
+    )
+    classify_parser.add_argument("path", help="Legacy file or folder to classify.")
+    classify_parser.add_argument(
+        "--markdown",
+        action="store_true",
+        help="Print the classification report as markdown.",
     )
 
     return parser
@@ -139,6 +151,27 @@ def run_legacy_audit(raw_path: str, markdown: bool) -> int:
     return 2
 
 
+def run_legacy_classification(raw_path: str, markdown: bool) -> int:
+    path = Path(raw_path).expanduser().resolve()
+    if not path.exists():
+        print(f"Path not found: {path}")
+        return 1
+
+    results = classify_path(path)
+    if markdown:
+        print(classifications_to_markdown(results))
+        return 0
+
+    if not results:
+        print("No text files were found to classify.")
+        return 0
+
+    for result in results:
+        tokens = ", ".join(result.matched_tokens) or "none"
+        print(f"{result.path}\t{result.decision.value}\t{result.reason}\t{tokens}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -167,6 +200,9 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "audit-legacy":
         return run_legacy_audit(args.path, args.markdown)
+
+    if args.command == "classify-legacy":
+        return run_legacy_classification(args.path, args.markdown)
 
     parser.print_help()
     return 0
