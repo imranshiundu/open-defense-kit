@@ -3,6 +3,7 @@ import shutil
 import sys
 import webbrowser
 from collections.abc import Callable
+from contextlib import contextmanager
 from platform import system
 
 from rich import box
@@ -39,6 +40,21 @@ console = Console(theme=_theme)
 
 def clear_screen():
     os.system("cls" if system() == "Windows" else "clear")
+
+
+@contextmanager
+def in_tools_dir():
+    """Run filesystem-dependent tool actions from the configured tools directory."""
+    from config import get_tools_dir
+
+    original_cwd = os.getcwd()
+    tools_dir = str(get_tools_dir())
+    os.makedirs(tools_dir, exist_ok=True)
+    try:
+        os.chdir(tools_dir)
+        yield tools_dir
+    finally:
+        os.chdir(original_cwd)
 
 
 def validate_input(ip, val_range: list) -> int | None:
@@ -130,14 +146,18 @@ class ODKTool:
                     return True
         # Check if git clone target dir exists
         if self.INSTALL_COMMANDS:
-            for ic in self.INSTALL_COMMANDS:
-                if "git clone" in ic:
-                    parts = ic.split()
-                    repo_url = [p for p in parts if p.startswith("http")]
-                    if repo_url:
-                        dirname = repo_url[0].rstrip("/").rsplit("/", 1)[-1].replace(".git", "")
-                        if os.path.isdir(dirname):
-                            return True
+            with in_tools_dir():
+                for ic in self.INSTALL_COMMANDS:
+                    if "git clone" in ic:
+                        parts = ic.split()
+                        repo_url = [p for p in parts if p.startswith("http")]
+                        if repo_url:
+                            dirname = repo_url[0].rstrip("/").rsplit("/", 1)[-1].replace(".git", "")
+                            url_idx = parts.index(repo_url[0])
+                            if url_idx + 1 < len(parts):
+                                dirname = parts[url_idx + 1]
+                            if os.path.isdir(dirname):
+                                return True
         return False
 
     def show_info(self):
@@ -210,9 +230,10 @@ class ODKTool:
     def install(self):
         self.before_install()
         if isinstance(self.INSTALL_COMMANDS, (list, tuple)):
-            for cmd in self.INSTALL_COMMANDS:
-                console.print(f"[warning]→ {cmd}[/warning]")
-                os.system(cmd)
+            with in_tools_dir():
+                for cmd in self.INSTALL_COMMANDS:
+                    console.print(f"[warning]→ {cmd}[/warning]")
+                    os.system(cmd)
         self.after_install()
 
     def after_install(self):
@@ -224,9 +245,10 @@ class ODKTool:
     def uninstall(self):
         if self.before_uninstall():
             if isinstance(self.UNINSTALL_COMMANDS, (list, tuple)):
-                for cmd in self.UNINSTALL_COMMANDS:
-                    console.print(f"[error]→ {cmd}[/error]")
-                    os.system(cmd)
+                with in_tools_dir():
+                    for cmd in self.UNINSTALL_COMMANDS:
+                        console.print(f"[error]→ {cmd}[/error]")
+                        os.system(cmd)
         self.after_uninstall()
 
     def after_uninstall(self): pass
@@ -238,33 +260,37 @@ class ODKTool:
             return
 
         updated = False
-        for ic in (self.INSTALL_COMMANDS or []):
-            if "git clone" in ic:
-                # Extract repo dir name from clone command
-                parts = ic.split()
-                repo_urls = [p for p in parts if p.startswith("http")]
-                if repo_urls:
-                    dirname = repo_urls[0].rstrip("/").rsplit("/", 1)[-1].replace(".git", "")
-                    if os.path.isdir(dirname):
-                        console.print(f"[cyan]→ git -C {dirname} pull[/cyan]")
-                        os.system(f"git -C {dirname} pull")
-                        updated = True
-            elif "pip install" in ic:
-                # Re-run pip install (--upgrade)
-                upgrade_cmd = ic.replace("pip install", "pip install --upgrade")
-                console.print(f"[cyan]→ {upgrade_cmd}[/cyan]")
-                os.system(upgrade_cmd)
-                updated = True
-            elif "go install" in ic:
-                # Re-run go install (fetches latest)
-                console.print(f"[cyan]→ {ic}[/cyan]")
-                os.system(ic)
-                updated = True
-            elif "gem install" in ic:
-                upgrade_cmd = ic.replace("gem install", "gem update")
-                console.print(f"[cyan]→ {upgrade_cmd}[/cyan]")
-                os.system(upgrade_cmd)
-                updated = True
+        with in_tools_dir():
+            for ic in (self.INSTALL_COMMANDS or []):
+                if "git clone" in ic:
+                    # Extract repo dir name from clone command
+                    parts = ic.split()
+                    repo_urls = [p for p in parts if p.startswith("http")]
+                    if repo_urls:
+                        dirname = repo_urls[0].rstrip("/").rsplit("/", 1)[-1].replace(".git", "")
+                        url_idx = parts.index(repo_urls[0])
+                        if url_idx + 1 < len(parts):
+                            dirname = parts[url_idx + 1]
+                        if os.path.isdir(dirname):
+                            console.print(f"[cyan]→ git -C {dirname} pull[/cyan]")
+                            os.system(f"git -C {dirname} pull")
+                            updated = True
+                elif "pip install" in ic:
+                    # Re-run pip install (--upgrade)
+                    upgrade_cmd = ic.replace("pip install", "pip install --upgrade")
+                    console.print(f"[cyan]→ {upgrade_cmd}[/cyan]")
+                    os.system(upgrade_cmd)
+                    updated = True
+                elif "go install" in ic:
+                    # Re-run go install (fetches latest)
+                    console.print(f"[cyan]→ {ic}[/cyan]")
+                    os.system(ic)
+                    updated = True
+                elif "gem install" in ic:
+                    upgrade_cmd = ic.replace("gem install", "gem update")
+                    console.print(f"[cyan]→ {upgrade_cmd}[/cyan]")
+                    os.system(upgrade_cmd)
+                    updated = True
 
         if updated:
             console.print("[success]✔ Update complete![/success]")
@@ -274,19 +300,20 @@ class ODKTool:
     def _get_tool_dir(self) -> str | None:
         """Find the tool's local directory — clone target, pip location, or binary path."""
         # 1. Check git clone target dir
-        for ic in (self.INSTALL_COMMANDS or []):
-            if "git clone" in ic:
-                parts = ic.split()
-                # If last arg is not a URL, it's a custom dir name
-                repo_urls = [p for p in parts if p.startswith("http")]
-                if repo_urls:
-                    dirname = repo_urls[0].rstrip("/").rsplit("/", 1)[-1].replace(".git", "")
-                    # Check custom target dir (arg after URL)
-                    url_idx = parts.index(repo_urls[0])
-                    if url_idx + 1 < len(parts):
-                        dirname = parts[url_idx + 1]
-                    if os.path.isdir(dirname):
-                        return os.path.abspath(dirname)
+        with in_tools_dir():
+            for ic in (self.INSTALL_COMMANDS or []):
+                if "git clone" in ic:
+                    parts = ic.split()
+                    # If last arg is not a URL, it's a custom dir name
+                    repo_urls = [p for p in parts if p.startswith("http")]
+                    if repo_urls:
+                        dirname = repo_urls[0].rstrip("/").rsplit("/", 1)[-1].replace(".git", "")
+                        # Check custom target dir (arg after URL)
+                        url_idx = parts.index(repo_urls[0])
+                        if url_idx + 1 < len(parts):
+                            dirname = parts[url_idx + 1]
+                        if os.path.isdir(dirname):
+                            return os.path.abspath(dirname)
 
         # 2. Check binary location via which
         if self.RUN_COMMANDS:
@@ -325,9 +352,10 @@ class ODKTool:
     def run(self):
         self.before_run()
         if isinstance(self.RUN_COMMANDS, (list, tuple)):
-            for cmd in self.RUN_COMMANDS:
-                console.print(f"[cyan]⚙ Running:[/cyan] [bold]{cmd}[/bold]")
-                os.system(cmd)
+            with in_tools_dir():
+                for cmd in self.RUN_COMMANDS:
+                    console.print(f"[cyan]⚙ Running:[/cyan] [bold]{cmd}[/bold]")
+                    os.system(cmd)
         self.after_run()
 
     def after_run(self): pass
