@@ -98,8 +98,26 @@ function App() {
     }
   }
 
+  // Check for active background jobs on load to fix "refresh issue"
+  const checkActiveJobs = async () => {
+    try {
+        const res = await fetch(`${API_BASE}/api/jobs/active`);
+        const job = await res.json();
+        if (job && job.id) {
+            executeAction({
+                job_id: job.id,
+                title: job.title,
+                is_reconnect: true
+            });
+        }
+    } catch (e) {
+        console.error("Failed to check active jobs", e);
+    }
+  }
+
   useEffect(() => {
     loadCatalog()
+    checkActiveJobs()
   }, [])
 
   const selectedCategory = categories.find((category) => category.id === selectedCategoryId) || null
@@ -148,7 +166,7 @@ function App() {
   const selectedCategorySupportsInstallAll =
     selectedCategory && selectedCategory.supportsInstallAll && visibilityFilter !== 'archived'
 
-  const executeAction = async ({ url, title, toolIdToReselect = selectedToolId }) => {
+  const executeAction = ({ title, toolIdToReselect = selectedToolId, ...params }) => {
     setActionState({
       loading: true,
       title,
@@ -156,55 +174,58 @@ function App() {
       error: '',
     })
 
-    try {
-      const response = await fetch(url, { method: 'POST' })
-      const payload = await response.json()
-      const combinedOutput = [payload.stdout, payload.stderr].filter(Boolean).join('\n')
+    // Functional fix: WebSocket streaming to survive page refreshes
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const ws = new WebSocket(`${protocol}//localhost:8000/ws/execute`);
 
-      if (!response.ok || payload.success === false) {
-        setActionState({
-          loading: false,
-          title,
-          output: combinedOutput,
-          error: payload.detail || 'Action failed.',
-        })
-      } else {
-        setActionState({
-          loading: false,
-          title,
-          output: combinedOutput || 'Action completed without console output.',
-          error: '',
-        })
-      }
+    ws.onopen = () => {
+        ws.send(JSON.stringify({
+            ...params,
+            target: targetScope
+        }));
+    };
 
-      await loadCatalog(toolIdToReselect)
-    } catch (error) {
-      setActionState({
-        loading: false,
-        title,
-        output: '',
-        error: error.message || 'Action failed.',
-      })
-    }
+    ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.type === 'stdout') {
+            setActionState(prev => ({
+                ...prev,
+                output: (params.is_reconnect && prev.output === '' ? '' : prev.output) + data.data
+            }));
+        } else if (data.type === 'exit') {
+            setActionState(prev => ({ ...prev, loading: false }));
+            loadCatalog(toolIdToReselect);
+            ws.close();
+        } else if (data.type === 'error') {
+            setActionState(prev => ({ ...prev, loading: false, error: data.message }));
+            ws.close();
+        }
+    };
+
+    ws.onerror = () => {
+        setActionState(prev => ({ ...prev, loading: false, error: 'Connection to backend lost.' }));
+    };
   }
 
   const runToolAction = (tool, actionName, label) =>
     executeAction({
-      url: `${API_BASE}/api/tools/${tool.id}/actions/${actionName}`,
+      toolId: tool.id,
+      action: actionName,
       title: `${label} · ${tool.title}`,
       toolIdToReselect: tool.id,
     })
 
   const runToolOption = (tool, option) =>
     executeAction({
-      url: `${API_BASE}/api/tools/${tool.id}/options/${option.index}`,
+      toolId: tool.id,
+      optionIndex: option.index,
       title: `${option.label} · ${tool.title}`,
       toolIdToReselect: tool.id,
     })
 
   const installMissingForCategory = (category) =>
     executeAction({
-      url: `${API_BASE}/api/categories/${category.id}/actions/install-missing`,
+      categoryId: category.id,
       title: `Install Missing · ${category.label}`,
       toolIdToReselect: selectedToolId,
     })
@@ -243,7 +264,7 @@ function App() {
             {actionState.error}
           </div>
         )}
-        <pre className="mt-4 bg-background border border-divider rounded-md p-4 text-xs text-muted overflow-x-auto whitespace-pre-wrap">
+        <pre className="mt-4 bg-background border border-divider rounded-md p-4 text-xs text-muted overflow-x-auto whitespace-pre-wrap font-mono">
           {actionState.output || (actionState.loading ? 'Working...' : 'No output yet.')}
         </pre>
       </div>
@@ -824,6 +845,10 @@ function App() {
       </main>
 
       {renderToolDetailModal()}
+
+      <footer className="py-6 border-t border-divider text-center text-xs font-mono text-muted">
+        support: <a href="https://github.com/imranshiundu/open-defense-kit" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">ODK</a>
+      </footer>
     </div>
   )
 }
