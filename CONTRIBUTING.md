@@ -2,6 +2,10 @@
 
 Thank you for helping build a safer defensive security toolkit.
 
+## Project Author
+
+**Imran Shiundu** ([@imranshiundu](https://github.com/imranshiundu))
+
 ## Contribution standard
 
 All contributions must support authorized, ethical, defensive, or lab-only security work.
