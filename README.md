@@ -14,7 +14,7 @@
 </div>
 
 <div align="center">
-  <img src="images/dashboard.png" alt="Open Defense Kit Control Plane Dashboard" width="100%">
+  <img src="images/odk_dashboard.png" alt="Open Defense Kit Control Plane Dashboard" width="100%">
 </div>
 
 ---
