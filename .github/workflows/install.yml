@@ -23,13 +23,27 @@ jobs:
         run: sudo python3 install.py
       - name: Verify the launcher exists and is executable
         run: |
-          test -x /usr/local/bin/odk
-          echo "Launcher present at /usr/local/bin/odk"
+          # Root installs place the launcher in /usr/bin; non-root in /usr/local/bin.
+          LAUNCHER=""
+          for p in /usr/bin/odk /usr/local/bin/odk; do
+            if [ -x "$p" ]; then LAUNCHER="$p"; break; fi
+          done
+          if [ -z "$LAUNCHER" ]; then
+            echo "odk launcher not found in /usr/bin or /usr/local/bin"
+            exit 1
+          fi
+          echo "Launcher present at $LAUNCHER"
       - name: Verify user directories and config
         run: |
-          test -d ~/.odk
-          test -f ~/.odk/config.json
-          echo "User config initialized"
+          # Sudo installs write config under /root/.odk; user installs under ~/.odk.
+          if sudo test -f /root/.odk/config.json; then
+            echo "Root config initialized"
+          elif test -f "$HOME/.odk/config.json"; then
+            echo "User config initialized"
+          else
+            echo "odk config.json not found after install"
+            exit 1
+          fi
       - name: Verify the odkit package CLI works standalone
         run: |
           pip install -e .
