@@ -1,0 +1,37 @@
+name: Install smoke test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  install:
+    name: install.py creates a working odk launcher
+    runs-on: ubuntu-latest
+    env:
+      TERM: "linux"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Run the installer
+        run: sudo python3 install.py
+      - name: Verify the launcher exists and is executable
+        run: |
+          test -x /usr/local/bin/odk
+          echo "Launcher present at /usr/local/bin/odk"
+      - name: Verify user directories and config
+        run: |
+          test -d ~/.odk
+          test -f ~/.odk/config.json
+          echo "User config initialized"
+      - name: Verify the odkit package CLI works standalone
+        run: |
+          pip install -e .
+          odkit doctor
+          odkit modules list

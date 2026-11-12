@@ -42,6 +42,22 @@ MODULES: dict[str, ModuleDefinition] = {
         ),
         docs="docs/modules/security-headers-notes.md",
     ),
+    "audit-report": ModuleDefinition(
+        slug="audit-report",
+        safety=ModuleSafetyProfile(
+            name="Security Audit Report",
+            category="audit-reporting",
+            risk=RiskLevel.LOW,
+            requires_authorization=False,
+            network_activity="none",
+            description=(
+                "Combine local secret scanning, risky legacy pattern review and file "
+                "hygiene checks into one graded HTML/Markdown/JSON audit report. "
+                "Read-only: the target is never executed and nothing leaves the machine."
+            ),
+        ),
+        docs="docs/modules/audit-report.md",
+    ),
 }
 
 

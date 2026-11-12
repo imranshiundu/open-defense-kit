@@ -1,6 +1,6 @@
 [project]
 name = "open-defense-kit"
-version = "0.1.0"
+version = "2.1.0"
 description = "A defense-first security learning and audit toolkit."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -8,12 +8,14 @@ license = { text = "MIT" }
 authors = [
   { name = "Imran Shiundu" }
 ]
-keywords = ["security", "defense", "blue-team", "audit", "education"]
+keywords = ["security", "defense", "blue-team", "audit", "education", "appsec", "secrets-scanning"]
 classifiers = [
-  "Development Status :: 1 - Planning",
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Education",
   "Intended Audience :: Developers",
   "Topic :: Security",
+  "Topic :: Security",
+  "Topic :: Software Development :: Quality Assurance",
   "Topic :: Education",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
@@ -23,8 +25,19 @@ classifiers = [
 
 dependencies = []
 
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[project.urls]
+Homepage = "https://github.com/imranshiundu/open-defense-kit"
+Repository = "https://github.com/imranshiundu/open-defense-kit"
+Issues = "https://github.com/imranshiundu/open-defense-kit/issues"
+
 [project.scripts]
 odkit = "odkit.cli:main"
+
+[tool.setuptools]
+packages = ["odkit", "odkit.modules"]
 
 [build-system]
 requires = ["setuptools>=68"]

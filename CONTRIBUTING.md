@@ -34,6 +34,7 @@ Every module must include:
 - dependencies
 - dry-run support where possible
 - documentation
+- unit tests (`tests/`) — CI runs the pytest suite on Python 3.10–3.12
 
 ## Code requirements
 
@@ -75,4 +76,6 @@ Every feature must explain:
 - [ ] The module has tests where applicable
 - [ ] The code does not require root by default
 - [ ] The code avoids raw shell execution
+- [ ] `pytest tests/` passes locally
+- [ ] `ruff check odkit/ tests/` passes locally
 - [ ] The README or docs were updated

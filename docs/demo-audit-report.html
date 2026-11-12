@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ODK Security Audit — odk-demo2</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#0e1111; color:#e6e9ee; font:14px/1.55 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 40px 24px 64px; }
+  header.top { border-left:4px solid #ff6a00; padding-left:16px; margin-bottom:28px; }
+  h1 { margin:0 0 4px; font-size:24px; letter-spacing:.4px; }
+  .brand { color:#ff6a00; font-weight:700; }
+  .meta { color:#7a869a; font-size:12.5px; }
+  .summary { display:flex; gap:12px; flex-wrap:wrap; align-items:stretch; margin:18px 0 30px; }
+  .grade-card { background:#171b1d; border:1px solid #262c2f; border-radius:12px; padding:14px 22px; text-align:center; min-width:110px; }
+  .grade { font-size:40px; font-weight:800; line-height:1; }
+  .card { background:#171b1d; border:1px solid #262c2f; border-radius:12px; padding:10px 18px; text-align:center; min-width:96px; }
+  .sev { font-size:24px; font-weight:700; line-height:1.2; }
+  .lbl { color:#7a869a; font-size:11px; letter-spacing:1px; }
+  section { margin-bottom:34px; }
+  h2 { font-size:15px; text-transform:uppercase; letter-spacing:1.4px; color:#c9d1dc; border-bottom:1px solid #262c2f; padding-bottom:8px; }
+  table { width:100%; border-collapse:collapse; background:#121516; border:1px solid #262c2f; border-radius:8px; overflow:hidden; }
+  th { background:#171b1d; color:#9aa5b1; text-align:left; font-size:11px; letter-spacing:.8px; text-transform:uppercase; padding:9px 12px; }
+  td { padding:8px 12px; border-top:1px solid #1f2427; vertical-align:top; word-break:break-word; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12.5px; }
+  .dim { color:#8b95a3; }
+  code { color:#e8b36a; }
+  ul.recs { margin:0; padding-left:20px; }
+  ul.recs li { margin-bottom:8px; }
+  footer { color:#5f6b7a; font-size:11.5px; border-top:1px solid #262c2f; padding-top:14px; margin-top:10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1><span class="brand">Open Defense Kit</span> — Security Audit Report</h1>
+    <div class="meta">Target: <code>/tmp/odk-demo2</code> &nbsp;|&nbsp; Scan ID: <code>923eff74</code> &nbsp;|&nbsp; 2026-11-12 10:34 UTC &nbsp;|&nbsp; Files scanned: 4 &nbsp;|&nbsp; Host: Linux</div>
+  </header>
+
+  <div class="summary">
+    <div class="grade-card"><div class="grade" style="color:#ff4d6d">F</div><div class="lbl">POSTURE GRADE</div></div>
+    <div class="card"><div class="sev" style="color:#ff4d6d">2</div><div class="lbl">CRITICAL</div></div><div class="card"><div class="sev" style="color:#ff9f43">3</div><div class="lbl">HIGH</div></div><div class="card"><div class="sev" style="color:#f5d76e">5</div><div class="lbl">MEDIUM</div></div><div class="card"><div class="sev" style="color:#78c4d4">0</div><div class="lbl">LOW</div></div>
+    <div class="card"><div class="sev">10</div><div class="lbl">TOTAL FINDINGS</div></div>
+  </div>
+
+  <section>
+    <h2>Exposed secrets</h2>
+    <table>
+      <tr><th>File</th><th>Line</th><th>Pattern</th><th>Severity</th><th>Preview</th></tr>
+      <tr><td class="mono">/tmp/odk-demo2/app.py</td><td>2</td><td><code>generic_api_key</code></td><td><span style="background:#ff9f4322;color:#ff9f43;border:1px solid #ff9f4355;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600">HIGH</span></td><td class="mono dim">API_KEY = &quot;a...[redacted]...4abcd&quot;</td></tr><tr><td class="mono">/tmp/odk-demo2/app.py</td><td>3</td><td><code>generic_api_key</code></td><td><span style="background:#ff9f4322;color:#ff9f43;border:1px solid #ff9f4355;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600">HIGH</span></td><td class="mono dim">AWS_SECRET =...[redacted]...KLMNOP</td></tr><tr><td class="mono">/tmp/odk-demo2/app.py</td><td>3</td><td><code>aws_access_key_like</code></td><td><span style="background:#ff4d6d22;color:#ff4d6d;border:1px solid #ff4d6d55;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600">CRITICAL</span></td><td class="mono dim">AWS_SECRET =...[redacted]...KLMNOP</td></tr><tr><td class="mono">/tmp/odk-demo2/keys.txt</td><td>1</td><td><code>private_key_marker</code></td><td><span style="background:#ff4d6d22;color:#ff4d6d;border:1px solid #ff4d6d55;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600">CRITICAL</span></td><td class="mono dim">-----BEGIN R...[redacted]...Y-----</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legacy / risky patterns</h2>
+    <table>
+      <tr><th>File</th><th>Line</th><th>Category</th><th>Severity</th><th>Description</th></tr>
+      <tr><td class="mono">/tmp/odk-demo2/deploy.sh</td><td>2</td><td><code>remote_script</code></td><td><span style="background:#f5d76e22;color:#f5d76e;border:1px solid #f5d76e55;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600">MEDIUM</span></td><td class="dim">remote download or shell execution</td></tr><tr><td class="mono">/tmp/odk-demo2/deploy.sh</td><td>3</td><td><code>root_or_privilege</code></td><td><span style="background:#f5d76e22;color:#f5d76e;border:1px solid #f5d76e55;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600">MEDIUM</span></td><td class="dim">sudo/su/root usage</td></tr><tr><td class="mono">/tmp/odk-demo2/deploy.sh</td><td>3</td><td><code>destructive_delete</code></td><td><span style="background:#f5d76e22;color:#f5d76e;border:1px solid #f5d76e55;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600">MEDIUM</span></td><td class="dim">destructive delete pattern</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>File hygiene</h2>
+    <table>
+      <tr><th>File</th><th>Kind</th><th>Severity</th><th>Detail</th><th></th></tr>
+      <tr><td class="mono">/tmp/odk-demo2/.env</td><td><code>credential_file_present</code></td><td><span style="background:#ff9f4322;color:#ff9f43;border:1px solid #ff9f4355;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600">HIGH</span></td><td class="dim">Sensitive credential file present in the tree. Ensure it is git-ignored and never committed.</td><td></td></tr><tr><td class="mono">/tmp/odk-demo2/.env</td><td><code>world_writable_file</code></td><td><span style="background:#f5d76e22;color:#f5d76e;border:1px solid #f5d76e55;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600">MEDIUM</span></td><td class="dim">File mode 0o666 is writable by users other than the owner.</td><td></td></tr><tr><td class="mono">/tmp/odk-demo2/deploy.sh</td><td><code>world_writable_file</code></td><td><span style="background:#f5d76e22;color:#f5d76e;border:1px solid #f5d76e55;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600">MEDIUM</span></td><td class="dim">File mode 0o666 is writable by users other than the owner.</td><td></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Recommendations</h2>
+    <ul class="recs"><li>Revoke and rotate every exposed key or private key immediately; assume committed secrets are compromised.</li><li>Move API keys into environment variables or a secret manager; add .env to .gitignore.</li><li>Run `odkit classify-legacy` on the risky files and apply the suggested migration decisions.</li><li>Credential files found in the tree: verify they are git-ignored and excluded from builds.</li><li>Restrict permissions on world-writable files (chmod o-w).</li></ul>
+  </section>
+
+  <footer>
+    Open Defense Kit · audit-report module · static, local-only pattern review. Nothing was executed and nothing left this machine.
+    This report does not prove code is safe or unsafe by itself — review every finding manually.
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+{
+  "tool": "open-defense-kit",
+  "module": "audit-report",
+  "scan_id": "923eff74",
+  "generated_at": "2026-11-12 10:34 UTC",
+  "target": "/tmp/odk-demo2",
+  "files_scanned": 4,
+  "total_findings": 10,
+  "severity_counts": {
+    "CRITICAL": 2,
+    "HIGH": 3,
+    "MEDIUM": 5,
+    "LOW": 0
+  },
+  "grade": "F",
+  "secrets": [
+    {
+      "path": "/tmp/odk-demo2/app.py",
+      "line": 2,
+      "pattern": "generic_api_key",
+      "severity": "HIGH",
+      "preview": "API_KEY = \"a...[redacted]...4abcd\""
+    },
+    {
+      "path": "/tmp/odk-demo2/app.py",
+      "line": 3,
+      "pattern": "generic_api_key",
+      "severity": "HIGH",
+      "preview": "AWS_SECRET =...[redacted]...KLMNOP"
+    },
+    {
+      "path": "/tmp/odk-demo2/app.py",
+      "line": 3,
+      "pattern": "aws_access_key_like",
+      "severity": "CRITICAL",
+      "preview": "AWS_SECRET =...[redacted]...KLMNOP"
+    },
+    {
+      "path": "/tmp/odk-demo2/keys.txt",
+      "line": 1,
+      "pattern": "private_key_marker",
+      "severity": "CRITICAL",
+      "preview": "-----BEGIN R...[redacted]...Y-----"
+    }
+  ],
+  "legacy_risks": [
+    {
+      "path": "/tmp/odk-demo2/deploy.sh",
+      "line": 2,
+      "category": "remote_script",
+      "severity": "MEDIUM",
+      "description": "remote download or shell execution",
+      "preview": "curl -sSL https://get.example.sh | sh"
+    },
+    {
+      "path": "/tmp/odk-demo2/deploy.sh",
+      "line": 3,
+      "category": "root_or_privilege",
+      "severity": "MEDIUM",
+      "description": "sudo/su/root usage",
+      "preview": "sudo rm -rf /tmp/cache"
+    },
+    {
+      "path": "/tmp/odk-demo2/deploy.sh",
+      "line": 3,
+      "category": "destructive_delete",
+      "severity": "MEDIUM",
+      "description": "destructive delete pattern",
+      "preview": "sudo rm -rf /tmp/cache"
+    }
+  ],
+  "hygiene": [
+    {
+      "path": "/tmp/odk-demo2/.env",
+      "kind": "credential_file_present",
+      "severity": "HIGH",
+      "detail": "Sensitive credential file present in the tree. Ensure it is git-ignored and never committed."
+    },
+    {
+      "path": "/tmp/odk-demo2/.env",
+      "kind": "world_writable_file",
+      "severity": "MEDIUM",
+      "detail": "File mode 0o666 is writable by users other than the owner."
+    },
+    {
+      "path": "/tmp/odk-demo2/deploy.sh",
+      "kind": "world_writable_file",
+      "severity": "MEDIUM",
+      "detail": "File mode 0o666 is writable by users other than the owner."
+    }
+  ],
+  "recommendations": [
+    "Revoke and rotate every exposed key or private key immediately; assume committed secrets are compromised.",
+    "Move API keys into environment variables or a secret manager; add .env to .gitignore.",
+    "Run `odkit classify-legacy` on the risky files and apply the suggested migration decisions.",
+    "Credential files found in the tree: verify they are git-ignored and excluded from builds.",
+    "Restrict permissions on world-writable files (chmod o-w)."
+  ],
+  "disclaimer": "Static, local-only pattern review. It does not prove code is safe or unsafe by itself."
+}
